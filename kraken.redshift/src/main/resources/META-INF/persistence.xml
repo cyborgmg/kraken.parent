@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="kraken.redshift-pu" transaction-type="RESOURCE_LOCAL">
+	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<non-jta-data-source>java:/KRAKEN_REDSHIFT</non-jta-data-source>
+		
+		
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MailinglistUseraccount</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.Promotionalcode</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.SalesSource</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.Useraccount</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.Mailinglist</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.Unifieddiscount</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.UseraccountUnifieddiscount</class>		
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngAttribute</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngAttributesOption</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngDealsLatest</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngDealsLatestAttribute</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngDealsLatestTag</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngTag</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.OcmSitenavigationclick</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngPagesLatest</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngPermanentScheduling</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.MngPermanentSchedulingDeal</class>
+		<class>com.peixeurbano.kraken.entity.redshift.kraken.UseraccountSubcategory</class>
+		
+		<properties>
+			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="none" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="hibernate.transaction.flush_before_completion" value="true" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
+		</properties>
+	</persistence-unit>
+</persistence>

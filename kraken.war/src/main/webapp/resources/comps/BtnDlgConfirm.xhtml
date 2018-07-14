@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+xmlns:cc="http://java.sun.com/jsf/composite"  
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+ 
+		<!-- INTERFACE -->
+		<cc:interface>
+			<cc:attribute name="id" type="String" required="true"/>
+	        <cc:attribute name="titulo" type="String" />
+	        <cc:attribute name="hide" type="String" />
+			<cc:attribute name="message" type="String" required="true"/>
+			<cc:attribute name="update" type="String" />
+			<cc:attribute name="disabledButton" type="Boolean" default="false"/>
+			<cc:attribute name="style" type="String" />
+	        <cc:attribute name="actionListener" method-signature="void action(javax.faces.event.ActionEvent)" required="true"/>
+	        <cc:attribute name="icon" type="String" />
+	    </cc:interface>
+
+		<!-- IMPLEMENTATION -->
+	    <cc:implementation>
+
+		<p:commandButton id="Button#{cc.attrs.id}" value="#{cc.attrs.titulo}" title="#{cc.attrs.titulo}" actionListener="#{cc.attrs.actionListener}" icon="#{cc.attrs.icon}" update="#{cc.attrs.update}" disabled="#{cc.attrs.disabledButton}" style="#{cc.attrs.style}">
+   			<p:confirm header="Confirmation" message="#{cc.attrs.message}" icon="ui-icon-alert" />
+		</p:commandButton>
+
+
+        <p:confirmDialog global="true">
+        	<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        	<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	    </p:confirmDialog>
+
+
+		</cc:implementation>
+    	
+</html>

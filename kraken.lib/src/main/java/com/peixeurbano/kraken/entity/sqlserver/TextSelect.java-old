@@ -1,0 +1,86 @@
+package com.peixeurbano.kraken.entity.sqlserver;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.peixeurbano.kraken.entity.enums.OperationText;
+
+
+/**
+ * The persistent class for the TEXT_SELECT database table.
+ * 
+ */
+@Entity
+@Table(name="CAMPAIGN")
+@NamedQuery(name="TextSelect.findAll", query="SELECT t FROM TextSelect t")
+public class TextSelect implements Serializable {
+	
+	/******TEXTSELECT******************************************************************/
+	
+	@Column(name="OPERACAO")
+	private OperationText opetation;
+
+	//@NotBlank
+	@Column(name="TEXT_DESC")
+	private String textDesc;
+
+	@Transient
+	private Boolean textSelectCheck = Boolean.FALSE;
+	
+	@Transient
+	private String opetationDesc="";
+	
+	/**********************************************************************************/
+
+	public TextSelect() {
+	}
+
+	public TextSelect(final OperationText opetation, final String textDesc) {
+		super();
+		this.opetation = opetation;
+		this.textDesc = textDesc;
+	}
+
+	/******TEXTSELECT******************************************************************/
+	
+	public OperationText getOpetation() {
+		return this.opetation==null?OperationText.CONTEM:this.opetation;
+	}
+
+	public void setOpetation(final OperationText opetation) {
+		this.opetation = opetation;
+	}
+
+	public String getTextDesc() {
+		return this.textDesc==null?"":this.textDesc;
+	}
+
+	public void setTextDesc(final String textDesc) {
+		this.textDesc = textDesc.trim();
+	}
+
+	public String getOpetationDesc() {
+		this.opetationDesc = this.getOpetation().getLabel(this.getTextDesc());
+		return this.opetationDesc;
+	}
+
+	public Boolean getTextSelectCheck() {
+		this.textSelectCheck = !"".equals(this.getTextDesc());
+		return this.textSelectCheck;
+	}
+
+	public void setTextSelectCheck(final Boolean textSelectCheck) {
+		this.textSelectCheck = textSelectCheck;
+		if(!this.textSelectCheck){
+			this.setTextDesc("");
+		}
+	}
+	
+	/**********************************************************************************/
+	
+}

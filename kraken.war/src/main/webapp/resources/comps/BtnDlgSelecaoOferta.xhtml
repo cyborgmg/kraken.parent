@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+xmlns:cc="http://java.sun.com/jsf/composite"  
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+ 
+		<!-- INTERFACE -->
+		<cc:interface>
+	        <cc:attribute name="lable" type="String" required="true"/>
+			<cc:attribute name="update" type="String" required="true"/>
+			<cc:attribute name="disabled" type="Boolean" default="false" />
+	        <cc:attribute name="style" type="String" />
+			<!--  
+	        <cc:attribute name="actionListenerBusca" method-signature="void action(javax.faces.event.ActionEvent)" required="true"/>
+	         -->
+	    </cc:interface>
+
+
+
+		<!-- IMPLEMENTATION -->
+	    <cc:implementation>
+	    
+	    <p:commandButton id="commandButtonSelectOffer" value="#{ cc.attrs.lable }" icon="ui-icon-arrow-1-s" update="dataTableOffers" onclick="PF('dlgSelectOffer').show()" disabled="#{cc.attrs.disabled}" style="#{cc.attrs.style}" />
+
+	    <p:dialog header="Seleção de Texto" id="dlgSelectOffer" widgetVar="dlgSelectOffer" modal="true" height="540px" width="711px" style="background-color: #F4F4F4;"  >
+	    
+		    <p:selectOneRadio id="selectOneRadioSelectOffer" value="#{campaignBean.campaignRequest.offerSelectRequest.offersSelectText}" layout="responsive" columns="4"
+		    	style="position:absolute;left:20px;top:9px;width:599px;height:45px;z-index:2;table-layout:fixed;">
+		        <f:selectItems value="#{campaignBean.campaignRequest.offerSelectRequest.offersSelectTexts}" var="offersSelectText" itemLabel="#{offersSelectText.label}" itemValue="#{offersSelectText.value}"/>
+		    </p:selectOneRadio>    
+	    
+			<p:inputText id="Editbox3Offer" size="490" style="position:absolute;left:20px;top:69px;width:575px;height:12px;line-height:12px;" value="#{campaignBean.campaignRequest.offerSelectRequest.offersText}"/>
+			
+			<p:commandButton id="Button6Offer" value="Buscar" actionListener="#{campaignBean.getUnifieddiscountQuery}" update="dataTableOffers" style="position:absolute;left:607px;top:69px;width:82px;height:23px;"/>
+			 
+ 			<p:dataTable id="dataTableOffers" 
+ 			var="unifieddiscount" 
+ 			value="#{campaignBean.campaignRequest.offerSelectRequest.unifieddiscounts}" 
+ 			scrollable="true" 
+ 			scrollHeight="362"
+ 			style="position:absolute;left:20px;top:109px;width:668px;height:251px;z-index:4;table-layout:fixed;">                         
+                   	<p:column headerText="Select" width="10%" >
+                   		<p:selectBooleanCheckbox id="Checkbox1Periodo" value="#{unifieddiscount.check}"  /> 
+        		 	</p:column>
+                   	<p:column headerText="Id" width="10%">
+            			<h:outputText value="#{unifieddiscount.unifieddiscountid}" />
+        		 	</p:column>
+                   	<p:column headerText="Descrição">
+            			<h:outputText value="#{unifieddiscount.unifieddiscountnameoriginal}" />
+        		 	</p:column>
+            </p:dataTable>             
+			
+			<p:commandButton id="Button1Offer" value="Ok" update="#{cc.attrs.update}" actionListener="#{campaignBean.addOffersSelects}" oncomplete="PF('dlgSelectOffer').hide()" style="position:absolute;left:607px;bottom:15px;width:82px;height:23px;"/>
+			<p:commandButton id="Button3Offer" value="Cancelar" onclick="PF('dlgSelectOffer').hide()" style="position:absolute;left:506px;bottom:15px;width:82px;height:23px;"/>
+
+			
+    	</p:dialog>
+    	
+		
+
+		</cc:implementation>
+    	
+</html>

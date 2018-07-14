@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:andii="http://www.abramus.org.br"
+xmlns:a4j="http://richfaces.org/a4j"
+xmlns:comps="http://java.sun.com/jsf/composite/comps"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+template="/templates/common/header.xhtml">
+ 
+<ui:define name="corpo">
+<div id="wb_Form1" style="position:absolute;left:10px;top:110px;width:1259px;height:800px;background-color: transparent;background-image: none;padding: 0;margin: 0;text-align: left;">
+<div id="wb_Text1" style="position:absolute;left:250px;top:5px;width:791px;height:441px;">
+<div style="font-family:Sans;font-size:13px;line-height:31px;color:#000000;">
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><span style="font-size:27px;line-height:31px;"><strong>Presado colaborador, </strong></span></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><span style="font-size:27px;line-height:31px;"><strong>gostaríamos de informar que seu acesso ao sistema KRAKEN não está autorizado.</strong></span></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><span style="font-size:27px;line-height:31px;"><strong>Para requisição de acesso, por favor, encaminhe um e-mail para</strong></span></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><span style="font-size:27px;line-height:31px;color:#0000FF;"><strong><a href="mailto:mail.team@peixeurbano.com.br">mail.team@peixeurbano.com.br</a></strong></span></div>
+<div style="text-align:center"><br/></div>
+<div style="text-align:center"><span style="font-size:27px;line-height:31px;"><strong>Att.: Engenharia - Mail Team</strong></span></div>
+</div>
+</div>
+</div>
+</ui:define>
+
+</ui:composition>

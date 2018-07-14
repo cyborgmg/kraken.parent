@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+xmlns:cc="http://java.sun.com/jsf/composite"  
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+ 
+		<!-- INTERFACE -->
+		<cc:interface>
+			<cc:attribute name="id" type="String" required="true"/>
+	        <cc:attribute name="lable" type="String" required="true"/>
+			<cc:attribute name="update" type="String" required="true"/>
+			<cc:attribute name="updateButtonOk" type="String" required="true"/>
+			<cc:attribute name="disabled" type="Boolean" />
+			<cc:attribute name="disabledButtonOk" type="Boolean" required="true"/>
+	        <cc:attribute name="style" type="String" />
+			<cc:attribute name="actionListenerBusca" method-signature="void action(javax.faces.event.ActionEvent)" required="true"/>
+			<cc:attribute name="actionListenerConfirm" method-signature="void action(javax.faces.event.ActionEvent)" required="true"/>
+			<cc:attribute name="operationtexts" type="java.util.List" required="true"/>
+			<cc:attribute name="operationtextSelect" type="com.peixeurbano.kraken.entity.enums.OperationText" required="true"/>
+			<cc:attribute name="btndlgselecaoqrys" type="java.util.List" required="true"/>
+	        <cc:attribute name="inputBusca" type="String" required="true"/>
+	        <cc:attribute name="disabledCode" type="Boolean" default="true"/>
+	        <cc:attribute name="enabledEstado" type="Boolean" default="false"/>
+	        <cc:attribute name="state" type="com.peixeurbano.kraken.entity.redshift.kraken.State"/>
+	    </cc:interface>
+
+		<!-- IMPLEMENTATION -->
+	    <cc:implementation>
+	    
+	    <p:commandButton id="commandButtonSelect#{cc.attrs.id}" value="#{ cc.attrs.lable }" icon="ui-icon-arrow-1-s" update="dataTable#{cc.attrs.id}" onclick="PF('dlgSelect#{cc.attrs.id}').show()" disabled="#{cc.attrs.disabled}" style="#{cc.attrs.style}" />
+
+	    <p:dialog header="Seleção de Texto" id="dlgSelect#{cc.attrs.id}" widgetVar="dlgSelect#{cc.attrs.id}" modal="true" height="540px" width="711px" style="background-color: #F4F4F4;"  >
+	    
+		    <p:selectOneRadio id="selectOneRadioSelect#{cc.attrs.id}" value="#{cc.attrs.operationtextSelect}" layout="responsive" columns="4"
+		    	style="position:absolute;left:20px;top:9px;width:599px;height:45px;z-index:2;table-layout:fixed;">
+		        <f:selectItems value="#{cc.attrs.operationtexts}" var="selectText" itemLabel="#{selectText.label}" itemValue="#{selectText.value}"/>
+		    </p:selectOneRadio>    
+	    
+	    	<c:choose>
+		    	<c:when test="#{cc.attrs.enabledEstado}" >
+		    		<p:selectOneMenu id="Combobox#{cc.attrs.id}" autoWidth="false" value="#{cc.attrs.state.id}" effectSpeed="fast" style="position:absolute;left:20px;top:69px;width:145px;height:20px;">
+					     <f:selectItems value="#{aplicationBean.states}" var="state" itemLabel="#{state.name}" itemValue="#{state.id}" />
+					</p:selectOneMenu>
+					<p:inputText id="Editbox#{cc.attrs.id}" size="337" style="position:absolute;left:200px;top:69px;width:395px;height:12px;line-height:12px;" value="#{cc.attrs.inputBusca}"/>
+				</c:when>
+				<c:otherwise>
+					<p:inputText id="Editbox#{cc.attrs.id}" size="490" style="position:absolute;left:20px;top:69px;width:575px;height:12px;line-height:12px;" value="#{cc.attrs.inputBusca}"/>								
+				</c:otherwise>	
+			</c:choose>
+			
+			<p:commandButton id="Button#{cc.attrs.id}" value="Buscar" actionListener="#{cc.attrs.actionListenerBusca}" update="dataTable#{cc.attrs.id} ButtonOk#{cc.attrs.id}" style="position:absolute;left:607px;top:69px;width:82px;height:23px;"/>
+			 
+ 			<p:dataTable id="dataTable#{cc.attrs.id}" 
+ 			var="btndlgselecaoqry" 
+ 			value="#{cc.attrs.btndlgselecaoqrys}" 
+ 			scrollable="true" 
+ 			scrollHeight="362"
+ 			style="position:absolute;left:20px;top:109px;width:668px;height:251px;z-index:4;table-layout:fixed;">                         
+                   	<p:column headerText="Select" width="10%" >
+                   		<p:selectBooleanCheckbox id="Checkbox1Periodo" value="#{btndlgselecaoqry.check}"  /> 
+        		 	</p:column>
+                   	<p:column headerText="Id" width="10%">
+            			<h:outputText value="#{btndlgselecaoqry.id}" />
+        		 	</p:column>
+                   	<p:column headerText="Descrição">
+            			<h:outputText value="#{btndlgselecaoqry.value}" />
+        		 	</p:column>
+        		 	<c:if test="#{ not cc.attrs.disabledCode }">
+	        		 	<p:column headerText="Código" width="30%">
+	            			<h:outputText value="#{btndlgselecaoqry.code}" />
+	        		 	</p:column>
+        		 	</c:if>
+            </p:dataTable>             
+			
+			<p:commandButton id="ButtonOk#{cc.attrs.id}" value="Ok" update="#{cc.attrs.update}" actionListener="#{cc.attrs.actionListenerConfirm}" oncomplete="PF('dlgSelect#{cc.attrs.id}').hide()" disabled="#{cc.attrs.disabledButtonOk}" style="position:absolute;left:607px;bottom:15px;width:82px;height:23px;"/>
+			<p:commandButton id="ButtonCa#{cc.attrs.id}" value="Cancelar" onclick="PF('dlgSelect#{cc.attrs.id}').hide()" style="position:absolute;left:506px;bottom:15px;width:82px;height:23px;"/>
+
+			
+    	</p:dialog>
+    	
+		
+
+		</cc:implementation>
+    	
+</html>

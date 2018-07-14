@@ -1,0 +1,780 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:andii="http://www.abramus.org.br"
+xmlns:a4j="http://richfaces.org/a4j"
+xmlns:comps="http://java.sun.com/jsf/composite/comps"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+template="/templates/common/principal.xhtml">
+
+<ui:define name="ajaxStatus">
+<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="background-color: transparent; box-shadow: none;">
+    <h:graphicImage value="/images/loading.gif"/>
+</p:dialog>
+</ui:define>
+
+<ui:define name="corpo">
+
+<!--********************************************** Container ****************************************************************************************************************-->
+<div id="container">
+<br/>
+<!--********************************************** KRAKEN *******************************************************************************************************************-->
+<div id="wb_Form1" style="position:absolute;left:182px;top:110px;width:1087px;height:837px;">
+
+<div id="wb_TabMenu1" style="position:absolute;left:18px;top:20px;width:1060px;height:40px;">
+
+<p:outputLabel id="outputLabelCampName1" value="Campanha: #{campaignBean.campaignRequest.campaign.name}" style="left:4px;bottom:10px;position:absolute;font-size: 24px;font-weight: bold;color: #A0A0A0;" /> 
+<p:outputLabel id="outputLabelCampName2" value="Campanha: #{campaignBean.campaignRequest.campaign.name}" style="left:1px;top:0;position:absolute;font-size: 24px;font-weight: bold;color: #000000;" />
+
+<comps:BtnDlgNome update=":Form1:outputLabelCampName1 :Form1:outputLabelCampName2 :Form1:Dlg0019:ButtonDlg0019" nome="#{campaignBean.campaignRequest.campaign.name}" style="right:1px;position: absolute;"/>
+
+</div>
+
+
+<div id="wb_Form3" style="position:absolute;left:8px;top:58px;width:1067px;height:728px;">
+
+<!--********************************************** Data de cadastro *********************************************************************************************************-->
+ 
+<p:selectBooleanCheckbox id="Checkbox001" value="#{campaignBean.campaignRequest.dataCadastro.check}" disabled="#{not campaignBean.campaignRequest.dataCadastro.check}" style="position:absolute;left:20px;top:30px;" type="checkbox">
+	<p:ajax update=":Form1:Label1001 :Form1:Checkbox001 :Form1:Dlg001:dlgSelectDateDlg001" />
+</p:selectBooleanCheckbox>
+<label for="" id="Label001" style="position:absolute;left:38px;top:30px;width:120px;height:12px;line-height:12px;">Data de cadastro</label>  
+<div id="wb_Form001" style="position:absolute;left:18px;top:49px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoPeriodo id="Dlg001" lable="Selecionar Filtro" 
+dateSelectRequest="#{campaignBean.campaignRequest.dataCadastro}"
+update=":Form1:Label1001 :Form1:Checkbox001"
+style="position:absolute;left:10px;top:16px;width:201px;height:25px;" />
+
+<p:outputLabel id="Label1001" value="#{campaignBean.campaignRequest.dataCadastro.description}" style="position:absolute;left:0px;top:58px;width:207px;height:15px;line-height:15px;text-align:center;"/>
+
+</div>
+
+<!--********************************************** Data de cadastro *********************************************************************************************************-->
+<!--********************************************** Data de aniversário ******************************************************************************************************-->
+ 
+<p:selectBooleanCheckbox id="Checkbox002" value="#{campaignBean.campaignRequest.dataAniversario.check}" disabled="#{not campaignBean.campaignRequest.dataAniversario.check}" style="position:absolute;left:20px;top:160px;" type="checkbox">
+	<p:ajax update=":Form1:Label1002 :Form1:Checkbox002 :Form1:Dlg002:dlgSelectDateDlg002" />
+</p:selectBooleanCheckbox>
+<label for="" id="Label002" style="position:absolute;left:38px;top:160px;width:120px;height:12px;line-height:12px;">Data de aniversário</label>
+<div id="wb_Form002" style="position:absolute;left:18px;top:181px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoPeriodo id="Dlg002" lable="Selecionar Filtro"  
+dateSelectRequest="#{campaignBean.campaignRequest.dataAniversario}"
+update=":Form1:Label1002 :Form1:Checkbox002"
+style="position:absolute;left:10px;top:16px;width:201px;height:25px;" />
+
+<p:outputLabel id="Label1002" value="#{campaignBean.campaignRequest.dataAniversario.description}" style="position:absolute;left:0px;top:58px;width:207px;height:15px;line-height:15px;text-align:center;"/>
+
+</div>
+
+<!--********************************************** Data de aniversário ******************************************************************************************************-->
+<!--********************************************** Lista de e-mails *********************************************************************************************************-->
+
+<p:selectBooleanCheckbox id="Checkbox003" value="#{campaignBean.campaignRequest.mailinglistSelectRequest.check}" disabled="#{not campaignBean.campaignRequest.mailinglistSelectRequest.check}" style="position:absolute;left:250px;top:27px;" type="checkbox">
+	<p:ajax update=":Form1:selectOneListbox003 :Form1:Dlg2003:ButtonDlg2003 :Form1:Checkbox003" />
+</p:selectBooleanCheckbox>
+<label id="Label003" style="position:absolute;left:269px;top:27px;width:120px;height:12px;line-height:12px;">Lista de e-mails</label>
+<div id="wb_Form003" style="position:absolute;left:249px;top:46px;width:216px;height:224px;">
+
+<p:selectOneMenu id="Combobox003" autoWidth="false" value="#{campaignBean.campaignRequest.mailinglistSelectRequest.mailinglist}" effectSpeed="fast" style="position:absolute;left:6px;top:10px;width:170px;height:20px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.mailinglistSelectRequest.mailinglists}" var="mailinglist" itemLabel="#{mailinglist.mailinglistname} - #{mailinglist.mailinglistid}" itemValue="#{mailinglist}" />
+</p:selectOneMenu>
+
+<comps:BtnDlgConfirm id="Dlg1003" titulo="Adicionar" icon="ui-icon-arrow-1-s" message="Deseja realmente adicionar este Item ?" update=":Form1:selectOneListbox003 :Form1:Dlg2003:ButtonDlg2003 :Form1:Checkbox003" 
+actionListener="#{campaignBean.addMailinglistSelect}" style="position:absolute;left:6px;top:43px;width:92px;height:25px;"/>
+
+<comps:BtnDlgConfirm id="Dlg2003" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:selectOneListbox003 :Form1:Dlg2003:ButtonDlg2003 :Form1:Checkbox003" 
+disabledButton="#{not campaignBean.campaignRequest.mailinglistSelectRequest.check}" actionListener="#{campaignBean.removeMailinglistSelect}" 
+style="position:absolute;left:117px;top:43px;width:91px;height:25px;"/> 
+
+<p:selectOneListbox id="selectOneListbox003" value="#{campaignBean.campaignRequest.mailinglistSelectRequest.mailinglistSelect}" scrollHeight="135" style="position:absolute;left:6px;top:81px;width:199px;height:131px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.mailinglistSelectRequest.mailinglistSelects}" var="mailinglistSelect" itemLabel="#{mailinglistSelect.mailinglistname} - #{mailinglistSelect.mailinglistId}" itemValue="#{mailinglistSelect}" />
+     <f:ajax render=":Form1:Dlg2003:ButtonDlg2003 :Form1:Checkbox003" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+
+<!--********************************************** Lista de e-mails *********************************************************************************************************-->
+<!--********************************************** Faixa Etária *************************************************************************************************************-->
+
+<p:selectBooleanCheckbox id="Checkbox004" value="#{campaignBean.campaignRequest.agerangeSelectRequest.check}" disabled="#{not campaignBean.campaignRequest.agerangeSelectRequest.check}" style="position:absolute;left:480px;top:27px;" type="checkbox">
+	<p:ajax update=":Form1:selectOneListbox004 :Form1:Dlg1004:ButtonDlg1004 :Form1:Checkbox004" />
+</p:selectBooleanCheckbox>
+<label id="Label004" style="position:absolute;left:500px;top:27px;width:120px;height:12px;line-height:12px;">Faixa Etária</label>
+<div id="wb_Form004" style="position:absolute;left:481px;top:46px;width:216px;height:224px;">
+
+<p:selectOneMenu id="Combobox004" autoWidth="false" value="#{campaignBean.campaignRequest.agerangeSelectRequest.agerange}" style="position:absolute;left:6px;top:10px;width:170px;height:20px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.agerangeSelectRequest.ageranges}" var="agerange" itemLabel="#{agerange.minAge} - #{agerange.maxAge}" itemValue="#{agerange}" />
+</p:selectOneMenu>
+
+<comps:BtnDlgConfirm id="Dlg2004" titulo="Adicionar" icon="ui-icon-arrow-1-s" message="Deseja realmente adicionar este Item ?" update=":Form1:selectOneListbox004 :Form1:Dlg1004:ButtonDlg1004 :Form1:Checkbox004" 
+actionListener="#{campaignBean.addAgerangeSelect}" style="position:absolute;left:6px;top:43px;width:92px;height:25px;"/>
+
+<comps:BtnDlgConfirm id="Dlg1004" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:selectOneListbox004 :Form1:Dlg1004:ButtonDlg1004 :Form1:Checkbox004" 
+disabledButton="#{not campaignBean.campaignRequest.agerangeSelectRequest.check}" actionListener="#{campaignBean.removeAgerangeSelect}" 
+style="position:absolute;left:117px;top:43px;width:91px;height:25px;"/> 
+
+<p:selectOneListbox id="selectOneListbox004" value="#{campaignBean.campaignRequest.agerangeSelectRequest.agerangeSelect}" scrollHeight="135" style="position:absolute;left:6px;top:81px;width:199px;height:131px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.agerangeSelectRequest.agerangeSelects}" var="agerangeSelect" itemLabel="#{agerangeSelect.agerange.minAge} - #{agerangeSelect.agerange.maxAge}" itemValue="#{agerangeSelect}" />
+     <f:ajax render=":Form1:Dlg1004:ButtonDlg1004 :Form1:Checkbox004" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+
+<!--********************************************** Faixa Etária *************************************************************************************************************-->
+<p:tabView id="tabView0022" style="position:absolute;left:710px;top:16px;width:336px;height:218px;">
+<!--********************************************** EXCL. CAMPANHAS **************************************************************************************************************-->
+<p:tab id="tab0023" title="Excl. Campanhas">
+<div id="wb_Form0023" style="position:absolute;left:0px;top:30px;width:100%;height:100%;">
+
+<p:selectBooleanCheckbox id="Checkbox0023" value="#{campaignBean.campaignRequest.campaignExcludeRequest.check}" disabled="#{not campaignBean.campaignRequest.campaignExcludeRequest.check}" 
+style="position:absolute;left:5px;top:5px;" type="checkbox">
+	<p:ajax update=":Form1:tabView0022:selectOneListbox0023 :Form1:tabView0022:Dlg20023:ButtonDlg20023 :Form1:tabView0022:Checkbox0023" />	
+</p:selectBooleanCheckbox>
+
+<label id="Label0023" style="position:absolute;left:25px;top:8px;width:192px;height:12px;line-height:12px;">Habilitada</label>
+
+<comps:BtnDlgSelecaoQry id="C0023"  
+actionListenerBusca="#{campaignBean.getCampainQuery}" 
+lable="Adicionar" 
+update="dataTableC0023 :Form1:tabView0022:selectOneListbox0023 :Form1:tabView0022:C0023:ButtonOkC0023 :Form1:tabView0022:Checkbox0023 :Form1:tabView0022:selectOneRadio0023 :Form1:tabView0022:Dlg20023:ButtonDlg20023" 
+inputBusca="#{campaignBean.campaignRequest.campaignExcludeRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.campaignExcludeRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addCampainExclude}"
+operationtexts="#{campaignBean.campaignRequest.campaignExcludeRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.campaignExcludeRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.campaignExcludeRequest.sources }"
+style="position:absolute;left:5px;top:25px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg20023" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView0022:selectOneListbox0023 :Form1:tabView0022:Dlg20023:ButtonDlg20023 :Form1:tabView0022:Checkbox0023" 
+disabledButton="#{not campaignBean.campaignRequest.campaignExcludeRequest.check}" actionListener="#{campaignBean.removeCampainExclude}" 
+style="position:absolute;left:117px;top:25px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio0023" value="#{campaignBean.campaignRequest.campaignExcludeRequest.campaign.categoryOperacao}" disabled="#{not campaignBean.campaignRequest.campaignExcludeRequest.campaign.categorySelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:25px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox0023" value="#{campaignBean.campaignRequest.campaignExcludeRequest.target}" scrollHeight="158" 
+style="position:absolute;left:6px;top:52px;width:325px;height:160px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.campaignExcludeRequest.targets}" var="target" itemLabel="#{target.value}" itemValue="#{target}" />
+     <f:ajax render=":Form1:tabView0022:Dlg20023:ButtonDlg20023 :Form1:tabView0022:Checkbox0023" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+</p:tab>
+<!--********************************************** EXCL. CAMPANHAS **************************************************************************************************************-->
+<p:tab id="tab0022" title="Demais Filtros"  >
+<div id="wb_Form0022" style="position:absolute;left:0px;top:30px;width:100%;height:100%;">
+
+<!--********************************************** Engajamento **************************************************************************************************************-->
+ 
+<p:selectBooleanCheckbox id="Checkbox020" value="#{campaignBean.campaignRequest.campaign.engagementCheck}" disabled="#{not campaignBean.campaignRequest.campaign.engagementCheck}" style="position:absolute;left:5px;top:5px;" type="checkbox">
+	<p:ajax update=":Form1:tabView0022:Checkbox1020 :Form1:tabView0022:Checkbox2020 :Form1:tabView0022:Checkbox3020 :Form1:tabView0022:Checkbox4020 :Form1:tabView0022:Checkbox5020 :Form1:tabView0022:Checkbox020" />
+</p:selectBooleanCheckbox>
+
+<label id="Label020" style="position:absolute;left:25px;top:8px;width:120px;height:12px;line-height:12px;">Engajamento</label>
+
+<div id="wb_Form020" style="position:absolute;left:5px;top:25px;width:144px;height:109px;">
+
+<p:selectBooleanCheckbox id="Checkbox1020" value="#{campaignBean.campaignRequest.campaign.zero}" style="position:absolute;left:10px;top:20px;">
+	<p:ajax update=":Form1:tabView0022:Checkbox020"/>
+</p:selectBooleanCheckbox>
+<p:selectBooleanCheckbox id="Checkbox2020" value="#{campaignBean.campaignRequest.campaign.um}" style="position:absolute;left:10px;top:50px;">
+	<p:ajax update=":Form1:tabView0022:Checkbox020"/>
+</p:selectBooleanCheckbox>
+<p:selectBooleanCheckbox id="Checkbox3020" value="#{campaignBean.campaignRequest.campaign.cinco}" style="position:absolute;left:10px;top:80px;">
+	<p:ajax update=":Form1:tabView0022:Checkbox020"/>
+</p:selectBooleanCheckbox>
+<p:selectBooleanCheckbox id="Checkbox4020" value="#{campaignBean.campaignRequest.campaign.dez}"	style="position:absolute;left:67px;top:20px;">
+	<p:ajax update=":Form1:tabView0022:Checkbox020"/>
+</p:selectBooleanCheckbox>
+<p:selectBooleanCheckbox id="Checkbox5020" value="#{campaignBean.campaignRequest.campaign.sete}" style="position:absolute;left:67px;top:50px;">
+	<p:ajax update=":Form1:tabView0022:Checkbox020"/>
+</p:selectBooleanCheckbox>
+	
+<label id="Label1020" style="position:absolute;left:30px;top:20px;width:23px;height:12px;line-height:12px;">0</label>
+<label id="Label2020" style="position:absolute;left:30px;top:50px;width:23px;height:12px;line-height:12px;">1</label>
+<label id="Label3020" style="position:absolute;left:30px;top:80px;width:23px;height:12px;line-height:12px;">5</label>
+<label id="Label5020" style="position:absolute;left:87px;top:20px;width:23px;height:12px;line-height:12px;">10</label>
+<label id="Label4020" style="position:absolute;left:87px;top:50px;width:23px;height:12px;line-height:12px;">7</label>
+	
+</div>
+	
+<!--********************************************** Engajamento **************************************************************************************************************-->
+<!--********************************************** Facebook *****************************************************************************************************************-->
+
+<p:selectBooleanCheckbox id="Checkbox005" value="#{campaignBean.campaignRequest.campaign.facebookCheck}" disabled="#{not campaignBean.campaignRequest.campaign.facebookCheck}" style="position:absolute;left:5px;top:145px;" type="checkbox">
+	<p:ajax update=":Form1:tabView0022:selectOneRadio005 :Form1:tabView0022:Checkbox005" />
+</p:selectBooleanCheckbox>
+<label id="Label005" style="position:absolute;left:25px;top:145px;width:120px;height:12px;line-height:12px;">Facebook</label>
+<div id="wb_Form005" style="position:absolute;left:5px;top:165px;width:144px;height:43px;">
+
+<p:selectOneRadio id="selectOneRadio005" value="#{campaignBean.campaignRequest.campaign.facebook}" layout="responsive" columns="2" style="position:absolute;left:7.5px;top:10px;width:150px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+	<p:ajax update=":Form1:tabView0022:Checkbox005" />
+</p:selectOneRadio>
+  
+</div>
+	
+<!--********************************************** Facebook *****************************************************************************************************************-->
+<!--********************************************** Sexo *********************************************************************************************************************-->
+
+<p:selectBooleanCheckbox id="Checkbox006" value="#{campaignBean.campaignRequest.campaign.sexoCheck}" disabled="#{not campaignBean.campaignRequest.campaign.sexoCheck}" style="position:absolute;left:170px;top:5px;" type="checkbox">
+	<p:ajax update=":Form1:tabView0022:selectOneRadio006 :Form1:tabView0022:Checkbox006" />
+</p:selectBooleanCheckbox>
+
+<label id="Label006" style="position:absolute;left:186px;top:3px;width:120px;height:12px;line-height:12px;">Sexo</label>
+	
+<div id="wb_Form006" style="position:absolute;left:170px;top:25px;width:144px;height:73px;">
+ 
+<p:selectOneRadio id="selectOneRadio006" value="#{campaignBean.campaignRequest.campaign.sexo}" layout="grid" columns="1" 
+style="position:absolute;width:150px;height:70px;left:20px;top:2px;"> 
+	<f:selectItems id="selectItem006Client" value="#{campaignBean.campaignRequest.sexos}" var="sexo" itemLabel="#{sexo.label}" itemValue="#{sexo.value}"/>
+	<p:ajax update=":Form1:tabView0022:Checkbox006" />	
+</p:selectOneRadio>
+
+ 
+</div>
+
+<!--********************************************** Sexo *********************************************************************************************************************-->
+
+</div>
+</p:tab>
+</p:tabView>	
+<!--********************************************** Perfil de Compras ********************************************************************************************************-->
+ 
+<p:tabView id="tabView007" style="position:absolute;left:8px;top:280px;width:1047px;height:397px;">
+<p:tab id="tab007" title="Perfil de Compras"  >
+<div id="wb_Form007" style="position:absolute;left:0px;top:40px;width:1047px;height:397px;">
+
+	
+<!--********************************************** Cliente ******************************************************************************************************************-->
+
+<p:selectBooleanCheckbox id="Checkbox007" value="#{campaignBean.campaignRequest.campaign.checkClientCheck}" disabled="#{not campaignBean.campaignRequest.campaign.checkClientCheck}" 
+style="position:absolute;left:8px;top:8px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneRadio008 :Form1:tabView007:Checkbox007" /> 
+</p:selectBooleanCheckbox>
+ 
+<label id="Label008" style="position:absolute;left:28px;top:8px;width:120px;height:15px;line-height:15px;">Cliente</label>
+	
+<div id="wb_Form008" style="position:absolute;left:8px;top:28px;width:217px;height:89px;">
+  
+<p:selectOneRadio id="selectOneRadio008" value="#{campaignBean.campaignRequest.campaign.checkClient}" layout="grid" columns="1" 
+style="position:absolute;width:150px;height:70px;left:30px;top:10px;">
+	<f:selectItems id="selectItem008Client" value="#{campaignBean.campaignRequest.clienteBooleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+	<p:ajax update=":Form1:tabView007:Checkbox007" />
+</p:selectOneRadio>
+  
+</div>
+
+<!--********************************************** Cliente ******************************************************************************************************************-->
+	
+<!--********************************************** Data da Última Compra ****************************************************************************************************-->	
+<p:selectBooleanCheckbox id="Checkbox012" value="#{campaignBean.campaignRequest.dataUltimaCompra.check}" disabled="#{not campaignBean.campaignRequest.dataUltimaCompra.check}" style="position:absolute;left:8px;top:140px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:Label1012 :Form1:tabView007:Checkbox012 :Form1:tabView007:Dlg012:dlgSelectDateDlg012"/>
+</p:selectBooleanCheckbox> 
+<label id="Label012" style="position:absolute;left:28px;top:140px;width:190px;height:12px;line-height:12px;">Data da Última Compra</label>
+
+<div id="wb_Form012" style="position:absolute;left:8px;top:159px;width:218px;height:89px;">
+
+<comps:BtnDlgSelecaoPeriodo id="Dlg012" lable="Selecionar Filtro" 
+dateSelectRequest="#{campaignBean.campaignRequest.dataUltimaCompra}"
+update=":Form1:tabView007:Label1012 :Form1:tabView007:Checkbox012"
+style="position:absolute;left:10px;top:16px;width:201px;height:25px;" />
+
+<p:outputLabel id="Label1012" value="#{campaignBean.campaignRequest.dataUltimaCompra.description}" style="position:absolute;left:0px;top:58px;width:207px;height:15px;line-height:15px;text-align:center;"/>
+	
+</div>
+
+<!--********************************************** Data da Última Compra ****************************************************************************************************-->	
+	
+<!--********************************************** Receita Op. Líquida ******************************************************************************************************-->
+	
+<p:selectBooleanCheckbox id="Checkbox015" value="#{campaignBean.campaignRequest.receitaLiquidaCompras.check}" disabled="#{not campaignBean.campaignRequest.receitaLiquidaCompras.check}" style="position:absolute;left:8px;top:270px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:Label1015 :Form1:tabView007:Checkbox015 :Form1:tabView007:Dlg015:dlgSelectVl"/>
+</p:selectBooleanCheckbox> 
+<label id="Label015" style="position:absolute;left:28px;top:270px;width:190px;height:12px;line-height:12px;">Receita Op. Líquida</label>
+
+<div id="wb_Form015" style="position:absolute;left:10px;top:289px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoValores id="Dlg015" lable="Selecionar Filtro" update=":Form1:tabView007:Label1015 :Form1:tabView007:Checkbox015" 
+   valueSelect="#{campaignBean.campaignRequest.receitaLiquidaCompras}"  
+   style="position:absolute;left:9px;top:18px;width:201px;height:25px;"/>
+
+<p:outputLabel id="Label1015" value="#{campaignBean.campaignRequest.receitaLiquidaCompras.opetationDesc}" style="position:absolute;left:0px;top:52px;width:218px;height:15px;line-height:15px;text-align:center;"/>
+  
+</div>
+	
+<!--********************************************** Receita Op. Líquida ******************************************************************************************************-->	
+	
+<!--********************************************** Quantidade de Compras ****************************************************************************************************-->	
+
+<p:selectBooleanCheckbox id="Checkbox009" value="#{campaignBean.campaignRequest.quantidadeCompras.check}" disabled="#{not campaignBean.campaignRequest.quantidadeCompras.check}" style="position:absolute;left:239px;top:8px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:Label1009 :Form1:tabView007:Checkbox009  :Form1:tabView007:Dlg009:dlgSelectVl"/>
+</p:selectBooleanCheckbox> 
+<label for="" id="Label009" style="position:absolute;left:259px;top:8px;width:190px;height:15px;line-height:15px;">Quantidade de Compras</label>
+
+<div id="wb_Form009" style="position:absolute;left:239px;top:28px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoValores id="Dlg009" lable="Selecionar Filtro" update=":Form1:tabView007:Label1009 :Form1:tabView007:Checkbox009" 
+   valueSelect="#{campaignBean.campaignRequest.quantidadeCompras}"  
+   style="position:absolute;left:9px;top:18px;width:201px;height:25px;"/>
+
+	
+<p:outputLabel id="Label1009" value="#{campaignBean.campaignRequest.quantidadeCompras.opetationDesc}" style="position:absolute;left:0px;top:52px;width:218px;height:15px;line-height:15px;text-align:center;"/>
+
+</div>
+
+<!--********************************************** Quantidade de Compras ****************************************************************************************************-->	
+	
+<!--********************************************** Maior Valor de Compra ****************************************************************************************************-->
+ 
+<p:selectBooleanCheckbox id="Checkbox013" value="#{campaignBean.campaignRequest.maiorValorCompra.check}" disabled="#{not campaignBean.campaignRequest.maiorValorCompra.check}" style="position:absolute;left:239px;top:140px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:Label1013 :Form1:tabView007:Checkbox013  :Form1:tabView007:Dlg013:dlgSelectVl"/>
+</p:selectBooleanCheckbox> 
+<label for="" id="Label013" style="position:absolute;left:259px;top:140px;width:190px;height:12px;line-height:12px;">Maior Valor de Compra</label>
+
+<div id="wb_Form013" style="position:absolute;left:239px;top:159px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoValores id="Dlg013" lable="Selecionar Filtro" update=":Form1:tabView007:Label1013 :Form1:tabView007:Checkbox013" 
+   valueSelect="#{campaignBean.campaignRequest.maiorValorCompra}"  
+   style="position:absolute;left:9px;top:18px;width:201px;height:25px;"/>
+
+<p:outputLabel id="Label1013" value="#{campaignBean.campaignRequest.maiorValorCompra.opetationDesc}" style="position:absolute;left:0px;top:52px;width:218px;height:15px;line-height:15px;text-align:center;"/>
+	
+</div>
+
+<!--********************************************** Maior Valor de Compra ****************************************************************************************************-->
+
+<!--********************************************** Código de Vl. Presente Usado *********************************************************************************************-->
+ 	
+<p:selectBooleanCheckbox id="Checkbox016" value="#{campaignBean.campaignRequest.campaign.textSelectCheck}" disabled="#{not campaignBean.campaignRequest.campaign.textSelectCheck}" style="position:absolute;left:239px;top:270px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:Label1016 :Form1:tabView007:Checkbox016 :Form1:tabView007:Dlg016:dlgSelectTxtDlg016"/>
+</p:selectBooleanCheckbox> 
+<label id="Label016" style="position:absolute;left:259px;top:270px;width:194px;height:12px;line-height:12px;">Código de Vl. Presente Usado</label>
+
+<div id="wb_Form016" style="position:absolute;left:239px;top:289px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoTexto  lable="Selecionar Filtro"  id="Dlg016"
+update=":Form1:tabView007:Label1016 :Form1:tabView007:Checkbox016" style="position:absolute;left:9px;top:18px;width:201px;height:25px;"/>
+<!-- textSelect="#{campaignBean.campaignRequest.campaign}" -->
+
+<p:outputLabel id="Label1016" value="#{campaignBean.campaignRequest.campaign.opetationDesc}" style="position:absolute;left:0px;top:52px;width:218px;height:15px;line-height:15px;text-align:center;"/>
+	
+</div>
+
+<!--********************************************** Código de Vl. Presente Usado *********************************************************************************************-->	
+	
+<!--********************************************** Vlr. Utilizado de Vl. Presente *******************************************************************************************-->	
+
+<p:selectBooleanCheckbox id="Checkbox010" value="#{campaignBean.campaignRequest.valorUtilizadoValePresente.check}" disabled="#{not campaignBean.campaignRequest.valorUtilizadoValePresente.check}" style="position:absolute;left:471px;top:8px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:Label1010 :Form1:tabView007:Checkbox010 :Form1:tabView007:Dlg010:dlgSelectVl" />
+</p:selectBooleanCheckbox>   
+<label for="" id="Label010" style="position:absolute;left:495px;top:7px;width:190px;height:15px;line-height:15px;">Vlr. Utilizado de Vl. Presente</label>
+
+<div id="wb_Form010" style="position:absolute;left:471px;top:28px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoValores id="Dlg010" lable="Selecionar Filtro" update=":Form1:tabView007:Label1010 :Form1:tabView007:Checkbox010" 
+   valueSelect="#{campaignBean.campaignRequest.valorUtilizadoValePresente}" 
+   style="position:absolute;left:9px;top:18px;width:201px;height:25px;"/>
+
+<p:outputLabel id="Label1010" value="#{campaignBean.campaignRequest.valorUtilizadoValePresente.opetationDesc}" style="position:absolute;left:0px;top:52px;width:218px;height:15px;line-height:15px;text-align:center;"/>
+
+</div>
+
+<!--********************************************** Vlr. Utilizado de Vl. Presente *******************************************************************************************-->
+	
+<!--********************************************** Já Comprou pelo App ******************************************************************************************************-->
+
+<p:selectBooleanCheckbox id="Checkbox014" value="#{campaignBean.campaignRequest.campaign.checkAppCheck}" disabled="#{not campaignBean.campaignRequest.campaign.checkAppCheck}" style="position:absolute;left:471px;top:140px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneRadio014 :Form1:tabView007:Checkbox014" />
+</p:selectBooleanCheckbox>
+<label for="" id="Label014" style="position:absolute;left:493px;top:140px;width:192px;height:12px;line-height:12px;">Já Comprou pelo App</label>
+
+<div id="wb_Form014" style="position:absolute;left:471px;top:159px;width:217px;height:89px;">
+
+<p:selectOneRadio id="selectOneRadio014" value="#{campaignBean.campaignRequest.campaign.checkApp}" layout="responsive" columns="2" 
+style="position:absolute;left:30px;top:30px;width:200px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+	<p:ajax update=":Form1:tabView007:Checkbox014" />	
+</p:selectOneRadio>
+ 
+</div>
+
+<!--********************************************** Já Comprou pelo App ******************************************************************************************************-->	
+	
+<!--********************************************** Ult. Compra com Vl. Presente *********************************************************************************************-->	
+
+<p:selectBooleanCheckbox id="Checkbox017" value="#{campaignBean.campaignRequest.campaign.checkvlpresenteCheck}" disabled="#{not campaignBean.campaignRequest.campaign.checkvlpresenteCheck}" style="position:absolute;left:471px;top:270px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneRadio017 :Form1:tabView007:Checkbox017" />
+</p:selectBooleanCheckbox>
+<label for="" id="Label017" style="position:absolute;left:493px;top:271px;width:192px;height:12px;line-height:12px;">Ult. Compra com Vl. Presente</label>	
+
+<div id="wb_Form017" style="position:absolute;left:471px;top:289px;width:217px;height:89px;">
+
+<p:selectOneRadio id="selectOneRadio017" value="#{campaignBean.campaignRequest.campaign.checkvlpresente}" layout="responsive" columns="2" 
+style="position:absolute;left:30px;top:30px;width:200px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+	<p:ajax update=":Form1:tabView007:Checkbox017" />	
+</p:selectOneRadio>
+
+ 
+</div>
+
+<!--********************************************** Ult. Compra com Vl. Presente *********************************************************************************************-->
+
+<p:tabView id="tabView0020" style="position:absolute;left:702px;top:8px;width:333px;height:158px;">
+<p:tab id="tab0020" title="Categorias"  >
+
+<!--********************************************** Categorias de Preferência ************************************************************************************************-->
+ 
+<div id="wb_Form0037" style="position:absolute;left:0px;top:35px;width:333px;height:150px;">
+
+<p:selectBooleanCheckbox id="Checkbox0037" value="#{campaignBean.campaignRequest.categorySelectRequest.check}" disabled="#{not campaignBean.campaignRequest.categorySelectRequest.check}" 
+style="position:absolute;left:5px;top:5px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:tabView0020:selectOneListbox0037 :Form1:tabView007:tabView0020:Dlg20037:ButtonDlg20037 :Form1:tabView007:tabView0020:Checkbox0037" />	
+</p:selectBooleanCheckbox>
+
+<label id="Label0037" style="position:absolute;left:25px;top:8px;width:192px;height:12px;line-height:12px;">Habilitada</label>
+
+<comps:BtnDlgSelecaoQry id="C0037"  
+actionListenerBusca="#{campaignBean.getMngTagCategoryQuery}" 
+lable="Adicionar" 
+update="dataTableC0037 :Form1:tabView007:tabView0020:selectOneListbox0037 :Form1:tabView007:tabView0020:C0037:ButtonOkC0037 :Form1:tabView007:tabView0020:Checkbox0037 :Form1:tabView007:tabView0020:selectOneRadio0037 :Form1:tabView007:tabView0020:Dlg20037:ButtonDlg20037" 
+inputBusca="#{campaignBean.campaignRequest.categorySelectRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.categorySelectRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addCategorySelects}"
+operationtexts="#{campaignBean.campaignRequest.categorySelectRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.categorySelectRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.categorySelectRequest.sources }"
+style="position:absolute;left:5px;top:25px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg20037" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView007:tabView0020:selectOneListbox0037 :Form1:tabView007:tabView0020:Dlg20037:ButtonDlg20037 :Form1:tabView007:tabView0020:Checkbox0037" 
+disabledButton="#{not campaignBean.campaignRequest.categorySelectRequest.check}" actionListener="#{campaignBean.removeCategorySelect}" 
+style="position:absolute;left:117px;top:25px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio0037" value="#{campaignBean.campaignRequest.categorySelectRequest.campaign.categoryOperacao}" disabled="#{not campaignBean.campaignRequest.categorySelectRequest.campaign.categorySelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:25px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox0037" value="#{campaignBean.campaignRequest.categorySelectRequest.target}" scrollHeight="93" 
+style="position:absolute;left:6px;top:52px;width:308px;height:85px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.categorySelectRequest.targets}" var="categorySelect" itemLabel="#{categorySelect.value}" itemValue="#{categorySelect}" />
+     <f:ajax render=":Form1:tabView007:tabView0020:Dlg20037:ButtonDlg20037 :Form1:tabView007:tabView0020:Checkbox0037" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+ 
+<!--********************************************** Categorias de Preferência ************************************************************************************************-->
+
+</p:tab>
+<p:tab id="tab0021" title="Sub-Categorias"  >
+
+<!--********************************************** SUB-Categorias de Preferência ************************************************************************************************-->
+ 
+<div id="wb_Form0021" style="position:absolute;left:0px;top:35px;width:333px;height:150px;">
+
+<p:selectBooleanCheckbox id="Checkbox0021" value="#{campaignBean.campaignRequest.subcategorySelectRequest.check}" disabled="#{not campaignBean.campaignRequest.subcategorySelectRequest.check}" 
+style="position:absolute;left:5px;top:5px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:tabView0020:selectOneListbox0021 :Form1:tabView007:tabView0020:Dlg20021:ButtonDlg20021 :Form1:tabView007:tabView0020:Checkbox0021" />	
+</p:selectBooleanCheckbox>
+
+<label id="Label0021" style="position:absolute;left:25px;top:8px;width:192px;height:12px;line-height:12px;">Habilitada</label>
+
+<comps:BtnDlgSelecaoQry id="C0021"  
+actionListenerBusca="#{campaignBean.getuseraccountSubcategory}" 
+lable="Adicionar" 
+update="dataTableC0021 :Form1:tabView007:tabView0020:selectOneListbox0021 :Form1:tabView007:tabView0020:C0021:ButtonOkC0021 :Form1:tabView007:tabView0020:Checkbox0021 :Form1:tabView007:tabView0020:selectOneRadio0021 :Form1:tabView007:tabView0020:Dlg20021:ButtonDlg20021" 
+inputBusca="#{campaignBean.campaignRequest.subcategorySelectRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.subcategorySelectRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addSubcategorySelects}"
+operationtexts="#{campaignBean.campaignRequest.subcategorySelectRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.subcategorySelectRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.subcategorySelectRequest.sources }"
+style="position:absolute;left:5px;top:25px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg20021" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView007:tabView0020:selectOneListbox0021 :Form1:tabView007:tabView0020:Dlg20021:ButtonDlg20021 :Form1:tabView007:tabView0020:Checkbox0021" 
+disabledButton="#{not campaignBean.campaignRequest.subcategorySelectRequest.check}" actionListener="#{campaignBean.removeSubcategorySelect}" 
+style="position:absolute;left:117px;top:25px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio0021" value="#{campaignBean.campaignRequest.subcategorySelectRequest.campaign.categoryOperacao}" disabled="#{not campaignBean.campaignRequest.subcategorySelectRequest.campaign.categorySelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:25px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox0021" value="#{campaignBean.campaignRequest.subcategorySelectRequest.target}" scrollHeight="93" 
+style="position:absolute;left:6px;top:52px;width:308px;height:85px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.subcategorySelectRequest.targets}" var="categorySelect" itemLabel="#{categorySelect.value}" itemValue="#{categorySelect}" />
+     <f:ajax render=":Form1:tabView007:tabView0020:Dlg20021:ButtonDlg20021 :Form1:tabView007:tabView0020:Checkbox0021" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+ 
+<!--********************************************** SUB-Categorias de Preferência ************************************************************************************************-->
+
+</p:tab>
+</p:tabView>
+	
+<!--********************************************** Já Comprou desta Oferta **************************************************************************************************-->
+
+<p:selectBooleanCheckbox id="Checkbox018" value="#{campaignBean.campaignRequest.offerSelectRequest.check}" disabled="#{not campaignBean.campaignRequest.offerSelectRequest.check}" 
+style="position:absolute;left:702px;top:199px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneListbox018 :Form1:tabView007:Dlg2018:ButtonDlg2018 :Form1:tabView007:Checkbox018" />
+</p:selectBooleanCheckbox>
+
+<label id="Label018" style="position:absolute;left:725px;top:199px;width:192px;height:12px;line-height:12px;">Já Comprou desta Oferta</label>
+
+<div id="wb_Form018" style="position:absolute;left:702px;top:219px;width:333px;height:158px;">
+
+<comps:BtnDlgSelecaoQry id="C018"  
+actionListenerBusca="#{campaignBean.getUnifieddiscount}" 
+lable="Adicionar" 
+update="dataTableC018 :Form1:tabView007:selectOneListbox018 :Form1:tabView007:C018:ButtonOkC018 :Form1:tabView007:Checkbox018 :Form1:tabView007:selectOneRadio018 :Form1:tabView007:Dlg2018:ButtonDlg2018" 
+inputBusca="#{campaignBean.campaignRequest.offerSelectRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.offerSelectRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addOffersSelects}"
+operationtexts="#{campaignBean.campaignRequest.offerSelectRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.offerSelectRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.offerSelectRequest.sources }"
+disabledCode="true"
+enabledEstado="true"
+state="#{campaignBean.campaignRequest.stateOffer}"
+style="position:absolute;left:6px;top:13px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg2018" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView007:selectOneListbox018 :Form1:tabView007:Dlg2018:ButtonDlg2018 :Form1:tabView007:Checkbox018" 
+disabledButton="#{not campaignBean.campaignRequest.offerSelectRequest.check}" actionListener="#{campaignBean.removeOffersSelect}" 
+style="position:absolute;left:117px;top:13px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio018" value="#{campaignBean.campaignRequest.offerSelectRequest.campaign.offerOperacao}" disabled="#{not campaignBean.campaignRequest.offerSelectRequest.campaign.offerSelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:13px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox018" value="#{campaignBean.campaignRequest.offerSelectRequest.target}" scrollHeight="93" 
+style="position:absolute;left:6px;top:51px;width:308px;height:95px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.offerSelectRequest.targets}" var="offersSelect" itemLabel="#{offersSelect.value}" itemValue="#{offersSelect}" />
+     <f:ajax render=":Form1:tabView007:Dlg2018:ButtonDlg2018 :Form1:tabView007:Checkbox018" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+ 
+<!--********************************************** Já Comprou desta Oferta **************************************************************************************************-->
+  
+</div> 
+</p:tab>
+
+<p:tab id="tab031" title="Navegação"  >
+<div id="wb_Form031" style="position:absolute;left:0px;top:40px;width:1047px;height:397px;">
+
+<!--********************************************** Data de Navegação *********************************************************************************************************-->
+<p:selectBooleanCheckbox id="Checkbox031" value="#{campaignBean.campaignRequest.dataNavegacao.check}" disabled="#{not campaignBean.campaignRequest.dataNavegacao.check}" 
+style="position:absolute;left:370px;top:15px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:Label1031 :Form1:tabView007:Checkbox031 :Form1:tabView007:Dlg031:dlgSelectDateDlg031" />
+</p:selectBooleanCheckbox>
+
+<label id="Label0031" style="position:absolute;left:390px;top:15px;width:200px;height:12px;line-height:18px;">Data de Navegação</label>
+  
+<div id="wb_Form031" style="position:absolute;left:365px;top:35px;width:217px;height:89px;">
+
+<comps:BtnDlgSelecaoPeriodo id="Dlg031" lable="Selecionar Filtro" 
+dateSelectRequest="#{campaignBean.campaignRequest.dataNavegacao}"
+update=":Form1:tabView007:Label1031 :Form1:tabView007:Checkbox031"
+style="position:absolute;left:10px;top:16px;width:201px;height:25px;" />
+
+<p:outputLabel id="Label1031" value="#{campaignBean.campaignRequest.dataNavegacao.description}" style="position:absolute;left:0px;top:58px;width:207px;height:15px;line-height:15px;text-align:center;"/>
+
+</div>
+<!--********************************************** Data de Navegação *********************************************************************************************************-->
+<!--********************************************** Navegou nas Ofertas *******************************************************************************************************-->
+<p:selectBooleanCheckbox id="Checkbox033" value="#{campaignBean.campaignRequest.offerSelectNavRequest.check}" disabled="#{not campaignBean.campaignRequest.offerSelectNavRequest.check}" 
+style="position:absolute;left:20px;top:15px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneListbox033 :Form1:tabView007:Dlg2033:ButtonDlg2033 :Form1:tabView007:Checkbox033" />
+</p:selectBooleanCheckbox>
+
+<label id="Label033" style="position:absolute;left:40px;top:15px;width:200px;height:12px;line-height:18px;">Navegou nas Ofertas</label>
+
+<div id="wb_Form033" style="position:absolute;left:15px;top:35px;width:330px;height:160px;">
+
+<comps:BtnDlgSelecaoQry id="C033"  
+actionListenerBusca="#{campaignBean.getMngDealsLatestQuery}" 
+lable="Adicionar" 
+update="dataTableC033 :Form1:tabView007:selectOneListbox033 :Form1:tabView007:C033:ButtonOkC033 :Form1:tabView007:Checkbox033 :Form1:tabView007:selectOneRadio033 :Form1:tabView007:Dlg2033:ButtonDlg2033" 
+inputBusca="#{campaignBean.campaignRequest.offerSelectNavRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.offerSelectNavRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addOffersNavSelects}"
+operationtexts="#{campaignBean.campaignRequest.offerSelectNavRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.offerSelectNavRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.offerSelectNavRequest.sources }"
+disabledCode="false"
+enabledEstado="true"
+state="#{campaignBean.campaignRequest.stateOfferNav}"
+style="position:absolute;left:6px;top:13px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg2033" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView007:selectOneListbox033 :Form1:tabView007:Dlg2033:ButtonDlg2033 :Form1:tabView007:Checkbox033" 
+disabledButton="#{not campaignBean.campaignRequest.offerSelectNavRequest.check}" actionListener="#{campaignBean.removeOffersNavSelect}" 
+style="position:absolute;left:117px;top:13px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio033" value="#{campaignBean.campaignRequest.offerSelectNavRequest.campaign.offerNavOperacao}" disabled="#{not campaignBean.campaignRequest.offerSelectNavRequest.campaign.offerNavSelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:13px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox033" value="#{campaignBean.campaignRequest.offerSelectNavRequest.target}" scrollHeight="93" 
+style="position:absolute;left:6px;top:51px;width:308px;height:95px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.offerSelectNavRequest.targets}" var="offersSelectNav" itemLabel="#{offersSelectNav.value}" itemValue="#{offersSelectNav}" />
+     <f:ajax render=":Form1:tabView007:Dlg2033:ButtonDlg2033 :Form1:tabView007:Checkbox033" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+
+<!--********************************************** Navegou nas Ofertas *******************************************************************************************************-->
+<!--********************************************** Navegou nas Coleções ******************************************************************************************************-->
+<p:selectBooleanCheckbox id="Checkbox034" value="#{campaignBean.campaignRequest.collectionsSelectNavRequest.check}" disabled="#{not campaignBean.campaignRequest.collectionsSelectNavRequest.check}" 
+style="position:absolute;left:20px;top:205px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneListbox034 :Form1:tabView007:Dlg2034:ButtonDlg2034 :Form1:tabView007:Checkbox034" />
+</p:selectBooleanCheckbox>
+
+<label id="Label034" style="position:absolute;left:40px;top:205px;width:200px;height:12px;line-height:18px;">Navegou nas Coleções</label>
+
+<div id="wb_Form034" style="position:absolute;left:15px;top:225px;width:330px;height:160px;">
+
+<comps:BtnDlgSelecaoQry id="C034"  
+actionListenerBusca="#{campaignBean.getMngTagMarketingQuery}" 
+lable="Adicionar" 
+update="dataTableC034 :Form1:tabView007:selectOneListbox034 :Form1:tabView007:C034:ButtonOkC034 :Form1:tabView007:Checkbox034 :Form1:tabView007:selectOneRadio034 :Form1:tabView007:Dlg2034:ButtonDlg2034" 
+inputBusca="#{campaignBean.campaignRequest.collectionsSelectNavRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.collectionsSelectNavRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addCollectionSelectNavs}"
+operationtexts="#{campaignBean.campaignRequest.collectionsSelectNavRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.collectionsSelectNavRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.collectionsSelectNavRequest.sources }"
+style="position:absolute;left:6px;top:13px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg2034" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView007:selectOneListbox034 :Form1:tabView007:Dlg2034:ButtonDlg2034 :Form1:tabView007:Checkbox034" 
+disabledButton="#{not campaignBean.campaignRequest.collectionsSelectNavRequest.check}" actionListener="#{campaignBean.removeCollectionSelectNav}" 
+style="position:absolute;left:117px;top:13px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio034" value="#{campaignBean.campaignRequest.collectionsSelectNavRequest.campaign.collectionNavOperacao}" disabled="#{not campaignBean.campaignRequest.collectionsSelectNavRequest.campaign.collectionNavSelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:13px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox034" value="#{campaignBean.campaignRequest.collectionsSelectNavRequest.target}" scrollHeight="93" 
+style="position:absolute;left:6px;top:51px;width:308px;height:95px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.collectionsSelectNavRequest.targets}" var="collectionsSelectNav" itemLabel="#{collectionsSelectNav.value}" itemValue="#{collectionsSelectNav}" />
+     <f:ajax render=":Form1:tabView007:Dlg2034:ButtonDlg2034 :Form1:tabView007:Checkbox034" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+<!--********************************************** Navegou nas Coleções ******************************************************************************************************-->
+<!--********************************************** Navegou nas Categorias ****************************************************************************************************-->
+<p:selectBooleanCheckbox id="Checkbox035" value="#{campaignBean.campaignRequest.categorySelectNavRequest.check}" disabled="#{not campaignBean.campaignRequest.categorySelectNavRequest.check}" 
+style="position:absolute;left:370px;top:205px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneListbox035 :Form1:tabView007:Dlg2035:ButtonDlg2035 :Form1:tabView007:Checkbox035" />
+</p:selectBooleanCheckbox>
+
+<label id="Label035" style="position:absolute;left:390px;top:205px;width:200px;height:12px;line-height:18px;">Navegou nas Categorias</label>
+
+<div id="wb_Form035" style="position:absolute;left:365px;top:225px;width:330px;height:160px;">
+
+<comps:BtnDlgSelecaoQry id="C035"  
+actionListenerBusca="#{campaignBean.getMngTagQuery}" 
+lable="Adicionar" 
+update="dataTableC035 :Form1:tabView007:selectOneListbox035 :Form1:tabView007:C035:ButtonOkC035 :Form1:tabView007:Checkbox035 :Form1:tabView007:selectOneRadio035 :Form1:tabView007:Dlg2035:ButtonDlg2035" 
+inputBusca="#{campaignBean.campaignRequest.categorySelectNavRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.categorySelectNavRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addCategorySelectNavs}"
+operationtexts="#{campaignBean.campaignRequest.categorySelectNavRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.categorySelectNavRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.categorySelectNavRequest.sources }"
+style="position:absolute;left:6px;top:13px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg2035" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView007:selectOneListbox035 :Form1:tabView007:Dlg2035:ButtonDlg2035 :Form1:tabView007:Checkbox035" 
+disabledButton="#{not campaignBean.campaignRequest.categorySelectNavRequest.check}" actionListener="#{campaignBean.removeCategorySelectNav}" 
+style="position:absolute;left:117px;top:13px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio035" value="#{campaignBean.campaignRequest.categorySelectNavRequest.campaign.categoryNavOperacao}" disabled="#{not campaignBean.campaignRequest.categorySelectNavRequest.campaign.categoryNavSelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:13px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox035" value="#{campaignBean.campaignRequest.categorySelectNavRequest.target}" scrollHeight="93" 
+style="position:absolute;left:6px;top:51px;width:308px;height:95px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.categorySelectNavRequest.targets}" var="categorySelectNav" itemLabel="#{categorySelectNav.value}" itemValue="#{categorySelectNav}" />
+     <f:ajax render=":Form1:tabView007:Dlg2035:ButtonDlg2035 :Form1:tabView007:Checkbox035" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+
+<!--********************************************** Navegou nas Categorias ****************************************************************************************************-->
+<!--********************************************** Navegou nos Atributos *****************************************************************************************************-->
+<p:selectBooleanCheckbox id="Checkbox036" value="#{campaignBean.campaignRequest.attributeSelectNavRequest.check}" disabled="#{not campaignBean.campaignRequest.attributeSelectNavRequest.check}" 
+style="position:absolute;left:715px;top:205px;" type="checkbox">
+	<p:ajax update=":Form1:tabView007:selectOneListbox036 :Form1:tabView007:Dlg2036:ButtonDlg2036 :Form1:tabView007:Checkbox036" />
+</p:selectBooleanCheckbox>
+
+<label id="Label036" style="position:absolute;left:735px;top:205px;width:200px;height:12px;line-height:18px;">Navegou nos Atributos</label>
+
+<div id="wb_Form036" style="position:absolute;left:710px;top:225px;width:330px;height:160px;">
+
+<comps:BtnDlgSelecaoQry id="C036"  
+actionListenerBusca="#{campaignBean.getMngAttributeQuery}" 
+lable="Adicionar" 
+update="dataTableC036 :Form1:tabView007:selectOneListbox036 :Form1:tabView007:C036:ButtonOkC036 :Form1:tabView007:Checkbox036 :Form1:tabView007:selectOneRadio036 :Form1:tabView007:Dlg2036:ButtonDlg2036" 
+inputBusca="#{campaignBean.campaignRequest.attributeSelectNavRequest.text}" 
+btndlgselecaoqrys="#{campaignBean.campaignRequest.attributeSelectNavRequest.sources}" 
+actionListenerConfirm="#{campaignBean.addAttributeSelectNavs}"
+operationtexts="#{campaignBean.campaignRequest.attributeSelectNavRequest.listOperatorTexts}"
+operationtextSelect="#{campaignBean.campaignRequest.attributeSelectNavRequest.operationText}"
+disabledButtonOk="#{ empty campaignBean.campaignRequest.attributeSelectNavRequest.sources }"
+disabledCode="fasle"
+style="position:absolute;left:6px;top:13px;width:92px;height:25px;"/> 
+
+<comps:BtnDlgConfirm id="Dlg2036" titulo="Remover" icon="ui-icon-trash" message="Deseja realmente remover este Item ?" update=":Form1:tabView007:selectOneListbox036 :Form1:tabView007:Dlg2036:ButtonDlg2036 :Form1:tabView007:Checkbox036" 
+disabledButton="#{not campaignBean.campaignRequest.attributeSelectNavRequest.check}" actionListener="#{campaignBean.removeAttributeSelectNav}" 
+style="position:absolute;left:117px;top:13px;width:91px;height:25px;"/> 
+
+<p:selectOneRadio id="selectOneRadio036" value="#{campaignBean.campaignRequest.attributeSelectNavRequest.campaign.attributeNavOperacao}" disabled="#{not campaignBean.campaignRequest.attributeSelectNavRequest.campaign.attributeNavSelectCheck}" 
+layout="responsive" columns="2" style="position:absolute;left:220px;top:13px;width:100px;">
+	<f:selectItems value="#{campaignBean.campaignRequest.booleanEnums}" var="booleanEnum" itemLabel="#{booleanEnum.label}" itemValue="#{booleanEnum.value}"/>
+</p:selectOneRadio>
+
+<p:selectOneListbox id="selectOneListbox036" value="#{campaignBean.campaignRequest.attributeSelectNavRequest.target}" scrollHeight="93" 
+style="position:absolute;left:6px;top:51px;width:308px;height:95px;table-layout:fixed;">
+     <f:selectItems value="#{campaignBean.campaignRequest.attributeSelectNavRequest.targets}" var="attributeSelectNav" itemLabel="#{attributeSelectNav.value}" itemValue="#{attributeSelectNav}" />
+     <f:ajax render=":Form1:tabView007:Dlg2036:ButtonDlg2036 :Form1:tabView007:Checkbox036" execute="@this"/>
+</p:selectOneListbox>
+
+</div>
+
+<!--********************************************** Navegou nos Atributos *****************************************************************************************************-->
+</div> 
+</p:tab>
+</p:tabView>
+ 
+<!--********************************************** Perfil de Compras ********************************************************************************************************-->
+ 
+</div>	
+   
+<comps:BtnDlgConfirm id="Dlg0019" titulo="Salvar Campanha" message="Deseja realmente salvar esta campanha ?" update=":Form1" icon="ui-icon-disk"
+actionListener="#{campaignBean.mergeCampaign}" disabledButton="#{campaignBean.campaignRequest.campaign.nameCheck}" style="position:absolute;left:898px;top:798px;width:172px;height:25px;"/>
+  
+</div>
+ 
+<!--********************************************** KRAKEN *******************************************************************************************************************-->		
+ 
+</div>
+ 
+<!--********************************************** Container ****************************************************************************************************************-->
+</ui:define>
+<!-- 
+</h:form>
+</h:body> 
+-->
+</ui:composition>
+

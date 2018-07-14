@@ -1,0 +1,245 @@
+package com.peixeurbano.kraken.entity.sqlserver;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.peixeurbano.kraken.entity.enums.BooleanEnum;
+import com.peixeurbano.kraken.utils.funcoes;
+
+
+/**
+ * The persistent class for the CATEGORIES_SELECT database table.
+ * 
+ */
+@Entity
+@Table(name="CAMPAIGN")
+@NamedQuery(name="CategoriesSelect.findAll", query="SELECT c FROM CategoriesSelect c")
+public class CategoriesSelect implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	/*****CATEGORIESSELECT*******************************************************/
+	
+	@Id
+	@Column(name="CAMPAIGN_ID")
+	private Integer campaignId;
+	
+	@Column(name="CURSO_AULA")
+	private BooleanEnum cursoAulaEnum=BooleanEnum.FALSO;
+
+	@Column(name="ENTRETENIMENTO")
+	private BooleanEnum entretenimentoEnum=BooleanEnum.FALSO;
+
+	@Column(name="ESTETICA")
+	private BooleanEnum esteticaEnum=BooleanEnum.FALSO;
+
+	@Column(name="GASTRONOMIA")
+	private BooleanEnum gastronomiaEnum=BooleanEnum.FALSO;
+
+	@Column(name="MODA")
+	private BooleanEnum modaEnum=BooleanEnum.FALSO;
+
+	@Column(name="SAUDEBESTAR")
+	private BooleanEnum saudebestarEnum=BooleanEnum.FALSO;
+
+	@Column(name="VIAGEN")
+	private BooleanEnum viagenEnum=BooleanEnum.FALSO;
+	
+	@Transient
+	private Boolean check = Boolean.FALSE;
+
+	/************************************************************/
+	
+	@Transient
+	private Boolean cursoAula;
+
+	@Transient
+	private Boolean entretenimento;
+
+	@Transient
+	private Boolean estetica;
+
+	@Transient
+	private Boolean gastronomia;
+
+	@Transient
+	private Boolean moda;
+
+	@Transient
+	private Boolean saudebestar;
+
+	@Transient
+	private Boolean viagen;
+
+	@Transient
+	private String sqlPart="";
+	
+	/************************************************************/
+	
+
+
+	public CategoriesSelect() {
+	}
+
+	public CategoriesSelect(final BooleanEnum cursoAulaEnum, final BooleanEnum entretenimentoEnum, final BooleanEnum esteticaEnum,
+			final BooleanEnum gastronomiaEnum, final BooleanEnum modaEnum, final BooleanEnum saudebestarEnum, final BooleanEnum viagenEnum) {
+		super();
+		this.cursoAulaEnum = cursoAulaEnum==null?BooleanEnum.FALSO:cursoAulaEnum;
+		this.entretenimentoEnum = entretenimentoEnum==null?BooleanEnum.FALSO:entretenimentoEnum;
+		this.esteticaEnum = esteticaEnum==null?BooleanEnum.FALSO:esteticaEnum;
+		this.gastronomiaEnum = gastronomiaEnum==null?BooleanEnum.FALSO:gastronomiaEnum;
+		this.modaEnum = modaEnum==null?BooleanEnum.FALSO:modaEnum;
+		this.saudebestarEnum = saudebestarEnum==null?BooleanEnum.FALSO:saudebestarEnum;
+		this.viagenEnum = viagenEnum==null?BooleanEnum.FALSO:viagenEnum;
+		this.restore();
+	}
+
+	/*******CATEGORIESSELECT*****************************************************/
+
+	public Boolean getCursoAula() {
+		return this.cursoAula;
+	}
+
+	public void setCursoAula(final Boolean cursoAula) {
+		this.cursoAula = cursoAula;
+		this.cursoAulaEnum=funcoes.convertTobooleanEnum(this.cursoAula);
+	}
+
+	public Boolean getEntretenimento() {
+		return this.entretenimento;
+	}
+
+	public void setEntretenimento(final Boolean entretenimento) {
+		this.entretenimento = entretenimento;
+		this.entretenimentoEnum=funcoes.convertTobooleanEnum(this.entretenimento);
+	}
+
+	public Boolean getEstetica() {
+		return this.estetica;
+	}
+
+	public void setEstetica(final Boolean estetica) {
+		this.estetica = estetica;
+		this.esteticaEnum=funcoes.convertTobooleanEnum(this.estetica);
+	}
+
+	public Boolean getGastronomia() {
+		return this.gastronomia;
+	}
+
+	public void setGastronomia(final Boolean gastronomia) {
+		this.gastronomia = gastronomia;
+		this.gastronomiaEnum=funcoes.convertTobooleanEnum(this.gastronomia);
+	}
+
+	public Boolean getModa() {
+		return this.moda;
+	}
+
+	public void setModa(final Boolean moda) {
+		this.moda = moda;
+		this.modaEnum=funcoes.convertTobooleanEnum(this.moda);
+	}
+
+	public Boolean getSaudebestar() {
+		return this.saudebestar;
+	}
+
+	public void setSaudebestar(final Boolean saudebestar) {
+		this.saudebestar = saudebestar;
+		this.saudebestarEnum=funcoes.convertTobooleanEnum(this.saudebestar);
+	}
+
+	public Boolean getViagen() {
+		return this.viagen;
+	}
+
+	public void setViagen(final Boolean viagen) {
+		this.viagen = viagen;
+		this.viagenEnum=funcoes.convertTobooleanEnum(this.viagen);
+	}
+	
+	/*******ENUM-GETS************************************************************************/
+	
+	public BooleanEnum getCursoAulaEnum() {
+		return this.cursoAulaEnum;
+	}
+
+	public BooleanEnum getEntretenimentoEnum() {
+		return this.entretenimentoEnum;
+	}
+
+	public BooleanEnum getEsteticaEnum() {
+		return this.esteticaEnum;
+	}
+
+	public BooleanEnum getGastronomiaEnum() {
+		return this.gastronomiaEnum;
+	}
+
+	public BooleanEnum getModaEnum() {
+		return this.modaEnum;
+	}
+	
+	public BooleanEnum getSaudebestarEnum() {
+		return this.saudebestarEnum;
+	}
+
+	public BooleanEnum getViagenEnum() {
+		return this.viagenEnum;
+	}
+	
+	/****************************************************************************************/
+
+	public CategoriesSelect restore(){
+		
+		this.cursoAula=this.cursoAulaEnum.convertTobollean();
+		this.entretenimento=this.entretenimentoEnum.convertTobollean();
+		this.estetica=this.esteticaEnum.convertTobollean();
+		this.gastronomia=this.gastronomiaEnum.convertTobollean();
+		this.moda=this.modaEnum.convertTobollean();
+		this.saudebestar=this.saudebestarEnum.convertTobollean();
+		this.viagen=this.viagenEnum.convertTobollean();
+
+		
+	return this;	
+	}
+	
+	public String getSqlPart() {
+		this.sqlPart=     "u.haspurgastronomia = "+this.gastronomiaEnum.getValor()
+					 +" or u.haspurturismo = "+this.viagenEnum.getValor()
+					 +" or u.haspureCommerce = "+this.cursoAulaEnum.getValor()
+					 +" or u.haspurservicoLocal = "+this.modaEnum.getValor()
+					 +" or u.haspurentretenimento = "+this.entretenimentoEnum.getValor()
+					 +" or u.haspurbemestar = "+this.saudebestarEnum.getValor();
+		return "("+this.sqlPart+")";
+	}
+
+	/**********************************************************************************/
+
+	public Boolean getCheck() {
+		this.check=(this.cursoAulaEnum.getValor()+this.entretenimentoEnum.getValor()+this.esteticaEnum.getValor()+
+				this.gastronomiaEnum.getValor()+this.modaEnum.getValor()+this.saudebestarEnum.getValor()+this.viagenEnum.getValor())>0;
+		return this.check;
+	}
+
+	public void setCheck(final Boolean check) {
+		this.check = check;
+		if(!this.check){
+			this.setCursoAula(Boolean.FALSE);
+			this.setEntretenimento(Boolean.FALSE);
+			this.setEstetica(Boolean.FALSE);
+			this.setGastronomia(Boolean.FALSE);
+			this.setModa(Boolean.FALSE);
+			this.setSaudebestar(Boolean.FALSE);
+			this.setViagen(Boolean.FALSE);			
+		}
+	}
+	
+	
+}

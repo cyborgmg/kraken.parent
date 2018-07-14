@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:andii="http://www.abramus.org.br"
+xmlns:a4j="http://richfaces.org/a4j"
+xmlns:comps="http://java.sun.com/jsf/composite/comps"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head id="head">
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title>Kraken - Sistema Gerênciador de Campanhas</title>
+<link rel="stylesheet" type="text/css" href="css/kraken.css"/>
+</h:head>
+<h:body id="body">
+
+<ui:insert name="poll"/> 
+
+<div id="container">
+<div id="wb_FormCentral" style="position:absolute;left:50px;top:0px;width:1276px;height:955px;">
+<form id="FormCentral" method="post">
+
+
+<ui:insert name="ajaxStatus"/>
+
+<p:growl id="growlErro" showDetail="true" life="10000" autoUpdate="true" severity="error"/>
+<p:growl id="growlInfo" showDetail="true" life="10000" autoUpdate="true" severity="info"/> 
+
+<ui:insert name="menu"/>
+
+<div id="wb_FormTop" style="position:absolute;left:10px;top:7px;width:1259px;height:101px;">
+<h:form method="post" id="FormTop">
+<div id="wb_ImageMapLogo" style="position:absolute;left:8px;top:7px;width:89px;height:86px;">
+<img src="images/kraken.png" id="ImageMapLogo" alt="" usemap="#ImageMapLogo_map"/>
+<map name="ImageMapLogo_map">
+</map>
+</div>
+<div id="wb_Kraken1" style="position:absolute;left:139px;top:23px;width:247px;height:52px;">
+<div style="font-family:Sans;font-size:13px;line-height:50px;color:#000000;">
+<div><span style="font-size:43px;line-height:50px;color:#FFFFFF;"><strong>Kraken</strong></span></div>
+</div>
+</div>
+<div id="wb_SistemaKraken3" style="position:absolute;left:462px;top:36px;width:551px;height:30px;">
+<div style="font-family:Sans;font-size:13px;line-height:28px;color:#000000;">
+<div style="text-align:center"><span style="font-size:24px;line-height:28px;color:#FFFFFF;"><strong><em>Sistema Gerênciador de Campanhas</em></strong></span></div>
+</div>
+</div>
+<p:outputLabel value="#{ sessionBean.mail }" style="position:absolute;right:50px;bottom:13px;color:white;" />
+
+<comps:BtnDlgConfirm id="Dlg037" icon="ui-icon-refresh" message="Deseja abandonar a sessção ?" 
+actionListener="#{sessionBean.logout}" hide="Atualizar Sessão"
+style="position:absolute;right:10px;bottom:10px;height:22px;"/> 
+
+</h:form>
+</div>
+
+<h:form id="Form1">
+	<ui:insert name="corpo"/>   
+</h:form>
+
+</form>
+</div>
+<div id="wb_Kraken2" style="position:absolute;left:194px;top:27px;width:247px;height:52px;">
+<div style="font-family:Sans;font-size:13px;line-height:50px;color:#000000;">
+<div><span style="font-size:43px;line-height:50px;"><strong>Kraken</strong></span></div>
+</div>
+</div>
+<div id="wb_SistemaKraken2" style="position:absolute;left:520px;top:40px;width:551px;height:30px;">
+<div style="font-family:Sans;font-size:13px;line-height:28px;color:#000000;">
+<div style="text-align:center"><span style="font-size:24px;line-height:28px;"><strong><em>Sistema Gerênciador de Campanhas</em></strong></span></div>
+</div>
+</div>
+</div>
+
+</h:body>
+</ui:composition>

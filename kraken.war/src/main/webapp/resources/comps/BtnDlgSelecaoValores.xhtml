@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+xmlns:cc="http://java.sun.com/jsf/composite"  
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+ 
+		<!-- INTERFACE -->
+		<cc:interface>
+			<cc:attribute name="id" type="String" required="true"/>
+	        <cc:attribute name="lable" type="String" required="true"/>
+			<cc:attribute name="update" type="java.lang.String" required="false" default=""/>
+			<cc:attribute name="disabled" type="Boolean" default="false" />
+	        <cc:attribute name="style" type="String" /> 
+	        <!-- 
+	       	<cc:attribute name="actionListener" method-signature="void actionListener(javax.faces.event.ActionEvent)" required="true"/>
+	       	 -->
+	       	
+	       	<cc:attribute name="valueSelect" type="com.peixeurbano.kraken.entity.sqlserver.ValueSelect" />
+	       	
+	    </cc:interface>
+
+
+		<!-- IMPLEMENTATION -->
+	    <cc:implementation>
+	    
+	    <p:commandButton id="BtnShow#{cc.attrs.id}" icon="ui-icon-wrench" value="#{ cc.attrs.lable }" onclick="PF('dlgSelectVl#{cc.attrs.id}').show()" type="button" disabled="#{cc.attrs.disabled}" style="#{cc.attrs.style}" />
+
+	    <p:dialog header="Seleção de Valores" widgetVar="dlgSelectVl#{cc.attrs.id}" id="dlgSelectVl" modal="true" height="220px" width="275px" style="background-color: #F4F4F4;" >
+
+		    <p:selectOneRadio id="selectOneRadio#{cc.attrs.id}" value="#{cc.attrs.valueSelect.opetation}" layout="responsive" columns="2" 
+		    	style="position:absolute;left:25px;top:20px;width:250px;height:100px;table-layout:fixed;">
+		        <f:selectItems value="#{campaignBean.campaignRequest.valueSelects}" var="valueSelect" itemLabel="#{valueSelect.label}" itemValue="#{valueSelect.value}"/>
+				<p:ajax event="change" update="Editbox2#{cc.attrs.id}" />
+		    </p:selectOneRadio>    
+
+			<p:spinner min="0" size="10" id="Editbox1#{cc.attrs.id}" value="#{cc.attrs.valueSelect.beginValue}" style="position:absolute;left:25px;top:140px;width:100px;height:23px;line-height:20px;font-size:11px;">
+				<p:ajax update="Editbox2#{cc.attrs.id}" process="@this" />
+			</p:spinner>
+			 
+			<label style="position:absolute;left:135px;top:144px;width:13px;height:13px;line-height:13px;z-index:2;">e</label>
+			
+			<p:spinner min="#{cc.attrs.valueSelect.beginValue}" size="10" id="Editbox2#{cc.attrs.id}" value="#{cc.attrs.valueSelect.endValue}" disabled="#{cc.attrs.valueSelect.endValueDisable}" style="position:absolute;left:152px;top:140px;width:100px;height:23px;line-height:20px;font-size:11px;"/>
+ 			
+			<p:commandButton id="ButtonOk#{cc.attrs.id}" value="Ok" update="#{cc.attrs.update}" oncomplete="PF('dlgSelectVl#{cc.attrs.id}').hide()" style="position:absolute;right:20px;top:179px;width:82px;height:23px;"/>
+			<p:commandButton id="ButtonCancel#{cc.attrs.id}" type="button" value="Cancelar" onclick="PF('dlgSelectVl#{cc.attrs.id}').hide()" style="position:absolute;right:110px;top:179px;width:82px;height:23px;"/>
+
+    	</p:dialog>
+
+		</cc:implementation>
+    	
+</html>

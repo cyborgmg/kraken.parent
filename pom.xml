@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.peixeurbano.kraken</groupId>
+	<artifactId>kraken.parent</artifactId>
+	<version>2.0.4</version>
+	<packaging>pom</packaging>
+
+	<name>Kraken</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.9</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.8</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<defaultGoal>package</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+
+		</plugins>
+	</build>
+	<scm>
+		<url>http://int-cont.cyborg.com.br:8888/root/kraken.git</url>
+		<connection>scm:git:git@int-cont.cyborg.com.br:root/kraken.git</connection>
+	</scm>
+	
+	<repositories>
+		<repository>
+			<id>TCYAAPDVPC01</id>
+			<name>TCYAAPDVPC01-cyborg-repository-local</name>
+			<url>http://int-cont.cyborg.com.br:8081/artifactory/list/cyborg-repository-local</url>
+		</repository>
+		<repository>
+			<id>jboss</id>
+			<url>http://repository.jboss.org/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>mvnrepository</id>
+			<url>https://mvnrepository.com/artifact/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>primefaces</id>
+			<url>http://repository.primefaces.org/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>TCYAAPDVPC01</id>
+			<name>TCYAAPDVPC01-cyborg-repository-local</name>
+			<url>http://int-cont.cyborg.com.br:8081/artifactory/list/cyborg-repository-local</url>
+		</repository>
+<!-- 
+		<snapshotRepository>
+			<id>TCYAAPDVPC01</id>
+			<name>TCYAAPDVPC01-snapshots</name>
+			<url>http://tc.peixeurbano.com.br:8081/artifactory/pu-snapshot-local</url>
+		</snapshotRepository>
+-->
+	</distributionManagement>
+
+  <modules>
+    <module>kraken.war</module>
+    <module>kraken.lib</module>
+    <module>kraken.redshift</module>
+    <module>kraken.schedule</module>
+    <module>kraken.sqlserver</module>
+  </modules>
+</project>

@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:andii="http://www.abramus.org.br"
+xmlns:a4j="http://richfaces.org/a4j"
+xmlns:comps="http://java.sun.com/jsf/composite/comps"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+template="/templates/common/header.xhtml">
+ 
+<ui:define name="menu">
+<div id="wb_FormLeft" style="position:absolute;left:10px;top:108px;width:169px;height:839px;">
+<h:form id="FormLeft">
+    <p:panelMenu style="width:168px">
+        <p:submenu label="Campanha" >
+            <p:menuitem value="Nova Campanha" outcome="campanha?faces-redirect=true" icon="ui-icon-extlink" />
+            <p:menuitem value="Campanhas" outcome="listCampanhas?faces-redirect=true" icon="ui-icon-extlink" />
+        </p:submenu>
+    </p:panelMenu>
+    
+    <p:outputLabel value="Version #{aplicationBean.vBuild}" style="bottom: 10px; color: silver; left: 35px; position: absolute;" />
+</h:form>
+</div>
+</ui:define>
+</ui:composition>

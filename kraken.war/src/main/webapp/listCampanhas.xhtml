@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:andii="http://www.abramus.org.br"
+xmlns:a4j="http://richfaces.org/a4j"
+xmlns:comps="http://java.sun.com/jsf/composite/comps"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+template="/templates/common/principal.xhtml">
+
+     
+<ui:define name="poll">
+<h:form id="FormlistCampanhas">
+    <p:poll id="listCampanhasPool" interval="1"  listener="#{listCampanhasBean.listener()}" />
+</h:form>
+</ui:define>
+ 
+<ui:define name="corpo">
+
+<!--********************************************** Container ****************************************************************************************************************-->
+<div id="container">
+<br/>
+<!--********************************************** KRAKEN *******************************************************************************************************************-->
+<div id="wb_Form1" style="position:absolute;left:182px;top:110px;width:1087px;height:837px;">
+<div id="wb_listCampanhasBean" style="position:absolute;left:8px;top:10px;width:1067px;height:810px;">
+<div id="wb_TabMenu1" style="position:absolute;left:40px;top:40px;width:1060px;height:40px;">
+	<p:outputLabel id="outputLabelCampName1" value="Campanhas" style="left:4px;bottom:0px;position:absolute;font-size: 32px;font-weight: bold;color: #A0A0A0;" /> 
+	<p:outputLabel id="outputLabelCampName2" value="Campanhas" style="left:1px;top:0;position:absolute;font-size: 32px;font-weight: bold;color: #000000;" />
+</div>
+
+	<comps:BtnDlgConfirm id="Dlg2020" titulo="Processar Campanhas" icon="ui-icon-refresh" message="Deseja realmente processar estas campanhas?" 
+	disabledButton="#{ sessionBean.getUserRight(0) or aplicationBean.sheduleEjbJobsSize>0 or empty listCampanhasBean.campaigns }" 
+				actionListener="#{listCampanhasBean.processCampains()}" update=":Form1:dataTableCampanhas :Form1:Dlg2020:ButtonDlg2020" 
+				style="position: absolute; height: 25px; right: 38px; top: 60px;"/>
+
+<div id="wb_Grid" style="position: absolute;left: 40px;top: 90px;width: 985px;height: 680px;">
+	
+	
+    <p:dataTable id="dataTableCampanhas" var="campaign" value="#{listCampanhasBean.campaigns}"
+                         scrollable="true" 
+ 						 scrollHeight="651"                         
+						 rowKey="#{ campaign.campaignId }"
+						 >
+        <p:column headerText="Nome">
+            <h:outputText value="#{campaign.name}" />
+        </p:column>
+ 
+ 		<p:column headerText="Count" width="6.5%">
+            <h:outputText value="#{campaign.scheduleCount}" />
+        </p:column>
+ 
+ 		<p:column id="columnProc" headerText="Processada" width="9%"  >
+ 			<h:graphicImage value="images/nao.png" height="22px" width="22px" style="position: relative;left: 23px;" rendered="#{campaign.status.valor==3}" title="#{campaign.status.label}" /> 			
+ 			<h:graphicImage value="images/sim.png" height="22px" width="22px" style="position: relative;left: 23px;" rendered="#{campaign.status.valor==2}" title="#{campaign.status.label}" /> 			 			
+ 			<h:graphicImage value="images/gear.png" height="22px" width="22px" style="position: relative;left: 23px;" rendered="#{campaign.status.valor==1}" title="#{campaign.status.label}" />
+ 			<h:graphicImage value="images/alert.png" height="22px" width="22px" style="position: relative;left: 23px;" rendered="#{campaign.status.valor==0}" title="#{campaign.status.label}" />
+ 		</p:column>
+ 
+        <p:column headerText="Habilitada" width="8%">
+        	<div style="position: relative;left: 19px;top: 1px;">
+            	<p:selectBooleanCheckbox id="CheckboxCampaignUsable" value="#{campaign.usableCheck}" disabled="#{campaign.status.valor==1}" >
+            		<p:ajax event="change" listener="#{listCampanhasBean.mergeCampaignEnable(campaign)}" update=":Form1:dataTableCampanhas" />
+            	</p:selectBooleanCheckbox>
+            </div>	
+        </p:column>
+ 
+        <p:column headerText="Operações" width="13%">
+        	
+        	<comps:BtnDlgConfirm id="Dlg2018" hide="Generate" icon="ui-icon-refresh" message="Deseja realmente gerar esta Campanha?" disabledButton="#{ sessionBean.getUserRight(0) or !campaign.usableCheck or campaign.status.valor==1  }" 
+				actionListener="#{listCampanhasBean.generateCampaignUseraccounts(campaign)}" update=":Form1:dataTableCampanhas" style="#{listCampanhasBean.btnGenerateStyle()}"/> 
+        	
+            <p:commandButton action="#{listCampanhasBean.setCampaignIdParameter(campaign.campaignId)}" disabled="#{ !campaign.usableCheck }" icon="ui-icon-wrench" title="Edit" style="position: relative;right: -10px;"/>	
+            <p:commandButton icon="ui-icon-calculator" update=":Form1:dataTableCampanhas" disabled="#{!campaign.usableCheck or campaign.status.valor==1}" style="position: relative;right: -20px;" />		
+        </p:column>
+ 
+    </p:dataTable>
+
+</div>
+</div>
+</div>
+</div>
+
+</ui:define>
+
+</ui:composition>

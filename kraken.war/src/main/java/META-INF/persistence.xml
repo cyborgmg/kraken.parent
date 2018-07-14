@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="kraken-pu" transaction-type="JTA">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <jta-data-source>java:/kraken</jta-data-source>
+		         
+			<class>com.peixeurbano.kraken.entity.sqlserver.AgerangeSelect</class> 
+			<class>com.peixeurbano.kraken.entity.sqlserver.DateSelect</class> 
+			<class>com.peixeurbano.kraken.entity.sqlserver.OffersSelect</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.ValueSelect</class> 
+			<class>com.peixeurbano.kraken.entity.sqlserver.Agerange</class> 
+			<class>com.peixeurbano.kraken.entity.sqlserver.DateSelectDate</class> 
+			<class>com.peixeurbano.kraken.entity.sqlserver.Campaign</class> 
+			<class>com.peixeurbano.kraken.entity.sqlserver.MailinglistSelect</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.DateSelectPeriod</class>   
+			<class>com.peixeurbano.kraken.entity.sqlserver.CampaignUseraccount</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.AttributeSelectNav</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.CategorySelectNav</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.CollectionsSelectNav</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.OffersSelectNav</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.Right</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.Role</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.User</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.RightRole</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.UserRole</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.CmpComponent</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.CmpComponentConfig</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.CategorySelect</class>			
+			<class>com.peixeurbano.kraken.entity.sqlserver.SubcategorySelect</class>
+			<class>com.peixeurbano.kraken.entity.sqlserver.CampaignExclude</class>
+		         
+        <properties>
+            <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect" />
+            <property name="hibernate.default_schema" value="dbo" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.use_sql_comments" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="none" />
+            <property name="hibernate.cache.use.query_cache" value="false" />
+            <property name="hibernate.jdbc.use_get_generated_keys" value="true" />
+            <property name="hibernate.transaction.flush_before_completion" value="true" />
+			<property name="hibernate.discriminator.ignore_explicit_for_joined" value="true" />
+        </properties>
+	
+	</persistence-unit>
+</persistence>

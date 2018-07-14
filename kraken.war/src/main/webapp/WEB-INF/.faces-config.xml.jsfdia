@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="campanha::#campanha.xhtml" NAME="output1"
+    PATH="/campanha.xhtml" TARGET="rules:#campanha.xhtml"
+    TITLE="campanha" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listCampanhas::#listCampanhas.xhtml"
+    NAME="output2" PATH="/listCampanhas.xhtml"
+    TARGET="rules:#listCampanhas.xhtml" TITLE="listCampanhas" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#campanha.xhtml" PATH="/campanha.xhtml"
+  SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#listCampanhas.xhtml"
+  PATH="/listCampanhas.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

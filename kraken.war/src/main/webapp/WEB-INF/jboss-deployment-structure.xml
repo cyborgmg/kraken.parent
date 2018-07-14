@@ -1,0 +1,18 @@
+<jboss-deployment-structure><!--  xmlns="urn:jboss:deployment-structure:1.2" -->
+	<deployment>	
+		<dependencies>
+			<module name="org.joda.time" />
+			<module name="org.hibernate" />
+			<module name="org.javassist" />
+			<module name="org.quartz" />
+			<module name="deployment.kraken.lib.jar" />
+			<module name="deployment.kraken.sqlserver.jar" />
+			<module name="deployment.kraken.schedule.jar" />
+		</dependencies>
+		 
+		<exclude-subsystems>
+			<subsystem name="webservices" />
+		</exclude-subsystems>	
+		 
+	</deployment>
+</jboss-deployment-structure>

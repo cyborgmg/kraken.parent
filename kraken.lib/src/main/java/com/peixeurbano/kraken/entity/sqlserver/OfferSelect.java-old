@@ -1,0 +1,95 @@
+package com.peixeurbano.kraken.entity.sqlserver;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.peixeurbano.kraken.entity.enums.BooleanEnum;
+
+
+/**
+ * The persistent class for the OFFER_SELECT database table.
+ * 
+ */
+@Entity
+@Table(name="CAMPAIGN")
+@NamedQuery(name="OfferSelect.findAll", query="SELECT o FROM OfferSelect o")
+public class OfferSelect implements Serializable {
+	
+	/************************************************************************/
+	@Column(name="OPERACAO")
+	private BooleanEnum operation;// = BooleanEnum.VERDADEIRO;
+
+	//bi-directional many-to-one association to OffersSelect
+	@OneToMany(mappedBy="offerSelect", cascade = CascadeType.ALL)
+	private List<OffersSelect> offersSelects=new ArrayList<OffersSelect>();
+
+	@Transient
+	private Boolean check = Boolean.FALSE;
+	
+	public OfferSelect() {
+	}
+	
+	public OfferSelect(final BooleanEnum operation) {
+		super();
+		this.operation = operation;
+	}
+
+	public BooleanEnum getOperation() {
+		
+		if(this.getOffersSelects().isEmpty()){
+			this.setOperation(null);
+		}else{
+			this.setOperation(BooleanEnum.VERDADEIRO);
+		}
+		
+		return this.operation;
+	}
+
+	public void setOperation(final BooleanEnum operation) {
+		this.operation = operation;
+	}
+
+	public List<OffersSelect> getOffersSelects() {
+		return this.offersSelects;
+	}
+
+	public void setOffersSelects(final List<OffersSelect> offersSelects) {
+		this.offersSelects = offersSelects;
+	}
+
+	public OffersSelect addOffersSelect(final OffersSelect offersSelect) {
+		this.getOffersSelects().add(offersSelect);
+		offersSelect.setOfferSelect(this);
+
+		return offersSelect;
+	}
+
+	public OffersSelect removeOffersSelect(final OffersSelect offersSelect) {
+		this.getOffersSelects().remove(offersSelect);
+		offersSelect.setOfferSelect(null);
+
+		return offersSelect;
+	}
+
+	public Boolean getCheck() {
+		this.check = !this.getOffersSelects().isEmpty();
+		return this.check;
+	}
+
+	public void setCheck(final Boolean check) {
+		this.check = check;
+		if(!this.check){
+			this.offersSelects.clear();
+		}
+	}
+	
+}

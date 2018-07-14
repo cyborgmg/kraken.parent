@@ -1,0 +1,185 @@
+package com.peixeurbano.kraken.entity.sqlserver;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.peixeurbano.kraken.entity.enums.BooleanEnum;
+import com.peixeurbano.kraken.utils.funcoes;
+
+
+/**
+ * The persistent class for the ENGAGEMENT database table.
+ * 
+ */
+@Entity
+@Table(name="CAMPAIGN")
+@NamedQuery(name="Engagement.findAll", query="SELECT e FROM Engagement e")
+public class Engagement implements Serializable {
+	
+	/*******ENGAGEMENT******************************************/
+	
+	@Column(name="CINCO")
+	private BooleanEnum cincoEnum=BooleanEnum.FALSO;
+
+	@Column(name="DEZ")
+	private BooleanEnum dezEnum=BooleanEnum.FALSO;
+
+	@Column(name="SETE")
+	private BooleanEnum seteEnum=BooleanEnum.FALSO;
+
+	@Column(name="UM")
+	private BooleanEnum umEnum=BooleanEnum.FALSO;
+
+	@Column(name="ZERO")
+	private BooleanEnum zeroEnum=BooleanEnum.FALSO;
+
+	@Transient
+	private Boolean engagementCheck = Boolean.FALSE;
+			
+
+	/*************************************************/
+	@Transient
+	private Boolean cinco;
+
+	@Transient
+	private Boolean dez;
+
+	@Transient
+	private Boolean sete;
+
+	@Transient
+	private Boolean um;
+
+	@Transient
+	private Boolean zero;
+	
+	@Transient
+	private String engagementSqlPart="";
+	/*************************************************/
+
+
+	public Engagement() {
+	}
+
+	public Engagement(final BooleanEnum cincoEnum, final BooleanEnum dezEnum, final BooleanEnum seteEnum, final BooleanEnum umEnum,
+			final BooleanEnum zeroEnum) {
+		super();
+		this.cincoEnum = cincoEnum==null?BooleanEnum.FALSO:cincoEnum;
+		this.dezEnum = dezEnum==null?BooleanEnum.FALSO:dezEnum;
+		this.seteEnum = seteEnum==null?BooleanEnum.FALSO:seteEnum;
+		this.umEnum = umEnum==null?BooleanEnum.FALSO:umEnum;
+		this.zeroEnum = zeroEnum==null?BooleanEnum.FALSO:zeroEnum;
+		this.engagementRestore();
+	}
+	
+	/*******ENGAGEMENT******************************************/
+
+	public Boolean getCinco() {
+		return this.cinco;
+	}
+
+	public void setCinco(final Boolean cinco) {
+		this.cinco = cinco;
+		this.cincoEnum=funcoes.convertTobooleanEnum(this.cinco);
+	}
+
+	public Boolean getDez() {
+		return this.dez;		
+	}
+
+	public void setDez(final Boolean dez) {
+		this.dez = dez;
+		this.dezEnum=funcoes.convertTobooleanEnum(this.dez);
+	}
+
+	public Boolean getSete() {
+		return this.sete;
+	}
+
+	public void setSete(final Boolean sete) {
+		this.sete = sete;
+		this.seteEnum=funcoes.convertTobooleanEnum(this.sete);
+	}
+
+	public Boolean getUm() {
+		return this.um;
+	}
+
+	public void setUm(final Boolean um) {
+		this.um = um;
+		this.umEnum=funcoes.convertTobooleanEnum(this.um);
+	}
+
+	public Boolean getZero() {
+		return this.zero;		
+	}
+
+	public void setZero(final Boolean zero) {
+		this.zero = zero;
+		this.zeroEnum=funcoes.convertTobooleanEnum(this.zero);
+	}
+	/************************************************************************/
+
+	public Engagement engagementRestore(){
+		
+		this.cinco=this.cincoEnum.convertTobollean();
+		this.dez=this.dezEnum.convertTobollean();
+		this.sete=this.seteEnum.convertTobollean();
+		this.um=this.umEnum.convertTobollean();
+		this.zero=this.zeroEnum.convertTobollean();
+		
+	return this;	
+	}
+	
+	public String getSqlPart() {
+		String arr = ((this.getZero()?"0,":"")+(this.getUm()?"1,":"")+(this.getCinco()?"5,":"")+(this.getSete()?"7,":"")+(this.getDez()?"10,":""));
+		this.engagementSqlPart = "("+arr.substring(0,arr.length()-1)+")" ;
+		return this.engagementSqlPart;
+	}
+	
+	/*******ENUM-GETS************************************************************************/
+	public BooleanEnum getCincoEnum() {
+		return this.cincoEnum;
+	}
+
+	public BooleanEnum getDezEnum() {
+		return this.dezEnum;
+	}
+
+	public BooleanEnum getSeteEnum() {
+		return this.seteEnum;
+	}
+
+	public BooleanEnum getUmEnum() {
+		return this.umEnum;
+	}
+
+	public BooleanEnum getZeroEnum() {
+		return this.zeroEnum;
+	}
+	/************************************************************************/
+
+	public Boolean getCheck() {
+		
+		this.engagementCheck = (this.cincoEnum.getValor()+this.dezEnum.getValor()+this.seteEnum.getValor()+this.umEnum.getValor()+this.zeroEnum.getValor())>0;
+		
+		return this.engagementCheck;
+	}
+
+	public void setCheck(final Boolean engagementCheck) {
+		this.engagementCheck = engagementCheck;
+		if(!this.engagementCheck){
+			this.setCinco(Boolean.FALSE);
+			this.setDez(Boolean.FALSE);
+			this.setSete(Boolean.FALSE);
+			this.setUm(Boolean.FALSE);
+			this.setZero(Boolean.FALSE);
+		}
+	}
+	
+}
